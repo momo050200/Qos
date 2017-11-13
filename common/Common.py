@@ -1,9 +1,7 @@
 #coding=utf-8
 
 from common_interface import CommonInterface as C
-from common.MD5 import MD5
-import requests
-import urllib.request
+
 
 def get_token(self, X_Application_id,date,X_Application_Auth):
     url = "http://61.160.149.236:10000/qos-api/t1?APP_ID=" + X_Application_id
@@ -33,6 +31,17 @@ def check(self,speed_id,X_Application_id,date,X_Application_Auth):
         "X_Application_Auth": X_Application_Auth,
     }
     result = C.get(self,url,headers=head)
+
+
+def split_speed(self,speed_id,X_Application_id,date,X_Application_Auth):
+    url = "http://61.160.149.236:10000/qos-api/speeding?speed_id=" + speed_id
+    head = {
+        "X-Request-At": date,
+        "X-Application-Id": X_Application_id,
+        "X_Application_Auth": X_Application_Auth,
+    }
+    result = C.delete(self,url,headers=head)
+
 
 
 
