@@ -1,6 +1,8 @@
 #coding=utf-8
 
 from common_interface import CommonInterface as C
+import requests
+
 
 
 def get_token(self, X_Application_id,date,X_Application_Auth):
@@ -15,7 +17,7 @@ def get_token(self, X_Application_id,date,X_Application_Auth):
         "X-Request-At": date,
         "X-Application-Id": X_Application_id
     }
-    req = C.get(self,url,headers=head)
+    req = requests.get(self,url,headers=head)
     # req = urllib.request.Request(url, headers=head)
     # response = urllib.request.urlopen(req)
     # compressedData = eval(response.read().decode())['result']
@@ -31,7 +33,26 @@ def check(self,speed_id,X_Application_id,date,X_Application_Auth):
         "X_Application_Auth": X_Application_Auth,
     }
     result = C.get(self,url,headers=head)
+    return result
 
+def speeding(self,X_Application_id,date,X_Application_Auth,security_token):
+    url = "http://61.160.149.236:10000/qos-api/speeding"
+    head = {
+        "X-Request-At": date,
+        "X-Application-Id": X_Application_id,
+        "X_Application_Auth": X_Application_Auth,
+    }
+    body = {
+        "security_token":security_token,
+        "dst_info":"60.174.237.91:242",
+        "src_info":"test",
+        "user_id":'userid',
+        "product_id":"12345678",
+        "level":"3",
+        "max_volume":"1"
+    }
+    result = C.post(self,url,data=body,headers=head)
+    return result
 
 def split_speed(self,speed_id,X_Application_id,date,X_Application_Auth):
     url = "http://61.160.149.236:10000/qos-api/speeding?speed_id=" + speed_id
@@ -41,6 +62,7 @@ def split_speed(self,speed_id,X_Application_id,date,X_Application_Auth):
         "X_Application_Auth": X_Application_Auth,
     }
     result = C.delete(self,url,headers=head)
+    return result
 
 
 
