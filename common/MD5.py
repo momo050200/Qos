@@ -9,6 +9,7 @@ def MD5(data):
     return Auth
 
 
+
 if __name__=='__main__':
     data = '12345678test2017-11-09T01:46:00Z'
     print(MD5(data))
