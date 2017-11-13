@@ -3,6 +3,7 @@
 from common_interface import CommonInterface as C
 from common.MD5 import MD5
 
+
 class Common():
 
     def test_get_token(self,app_id):
