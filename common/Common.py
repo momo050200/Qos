@@ -4,7 +4,6 @@ from common_interface import CommonInterface as C
 import requests
 
 
-
 def get_token(self, X_Application_id,date,X_Application_Auth):
     url = "http://61.160.149.236:10000/qos-api/t1?APP_ID=" + X_Application_id
     head = {
