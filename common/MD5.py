@@ -1,7 +1,6 @@
 #coding=utf-8
 import hashlib,time
 
-
 def MD5():
     X_Application_id = '12345678'
 
