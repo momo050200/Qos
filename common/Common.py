@@ -6,6 +6,7 @@ from common.MD5 import MD5
 
 def get_token(self, app_id):
     date, X_Application_Auth = MD5()
+
     url = "http://61.160.149.236:10000/qos-api/t1?APP_ID=" + app_id
     head = {
         "x-up-calling-line-id": "13390905442",
