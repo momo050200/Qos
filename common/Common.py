@@ -5,8 +5,8 @@ from common_interface import CommonInterface as C
 def get_token(self, X_Application_id,date,X_Application_Auth):
     url = "http://61.160.149.236:10000/qos-api/t1?APP_ID=" + X_Application_id
     head = {
-        "x-up-calling-line-id": "13390905442",
-        "x-forwarded-for": "180.99.55.207",
+        "x-up-calling-line-id": "15366189548",
+        "x-forwarded-for": "10.82.171.192",
         "x-Called-Station-id": "test",
         "x-User-Location-Info": "test",
         "X-Rat-Type": "test",
@@ -14,7 +14,7 @@ def get_token(self, X_Application_id,date,X_Application_Auth):
         "X-Request-At": date,
         "X-Application-Id": X_Application_id
     }
-    result = C.get(url,data=None,headers=head)
+    result = C.get(self,url,data=None,headers=head)
     return result
 
 def check(self,speed_id,X_Application_id,date,X_Application_Auth):
