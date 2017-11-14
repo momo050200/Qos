@@ -7,7 +7,7 @@ from common_interface import CommonInterface as C
     参数说明：
     X_Application_id：app_id
     date：X-Request-At
-    X_Application_Auth：X_Application_Auth
+    X-Application-Auth：X_Application_Auth
     
 '''
 
