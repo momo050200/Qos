@@ -40,7 +40,7 @@ class test(unittest.TestCase):
     def test_get_token_faile_with_none_app_id(self):
         '''获取token时不传入：X-Application-Id'''
         X_Application_id = ''
-        date, X_Application_Auth = MD5(X_Application_id)
+        date,X_Application_Auth = MD5(X_Application_id)
         result = {"code":"50000"}
         get_token(self,X_Application_id,date,X_Application_Auth,result)
 
@@ -56,6 +56,14 @@ class test(unittest.TestCase):
         X_Application_id = '9876654321'
         date, X_Application_Auth = MD5(X_Application_id)
         result = {"code":"50000"}
+        get_token(self,X_Application_id,date,X_Application_Auth,result)
+
+    def test_get_token_faile_with_null_X_Request_At(self):
+        '''获取token时传入：X-Request-At为空'''
+        X_Application_id = '12345678'
+        date,X_Application_Auth = MD5(X_Application_id)
+        date = ''
+        result = {"code": "40003"}
         get_token(self,X_Application_id,date,X_Application_Auth,result)
 
     def test_token_timeout(self):
