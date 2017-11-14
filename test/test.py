@@ -1,7 +1,6 @@
 #coding=utf-8
 
 import unittest
-from common_interface import CommonInterface as C
 from common.MD5 import MD5
 from common.Common import get_token,speeding,check,delete_speeding
 
@@ -18,7 +17,7 @@ class test(unittest.TestCase):
         X_Application_id = '12345678'
         date, X_Application_Auth = MD5(X_Application_id)
         #step1 获取token
-        token=get_token(self,X_Application_id,date,X_Application_Auth)
+        token=get_token(self,X_Application_id,date,X_Application_Auth)['result']
         print('step1 获取token：'+str(token))
         #step2 申请提速
         result2 = {'result':{'Done':'True'}}
@@ -34,7 +33,7 @@ class test(unittest.TestCase):
         d=delete_speeding(self,speed_id,X_Application_id,date,X_Application_Auth,result4)
         print('step4 撤销提速：'+str(d))
         #step5 检查撤销提速结果
-        result5 = {'msg': '成功', 'code': '0'}
+        result5 = {'msg': '对不起，系统异常', 'code': '10000'}
         c2 = check(self, speed_id, X_Application_id, date, X_Application_Auth, result5)
         print('step5 检查撤销提速结果：'+str(c2))
 

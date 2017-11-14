@@ -15,7 +15,7 @@ def get_token(self, X_Application_id,date,X_Application_Auth,results=None):
     url = "http://61.160.149.236:10000/qos-api/t1?APP_ID=12345678"
     head = {
         "x-up-calling-line-id": "15366189548",
-        "x-forwarded-for": "10.82.171.192",
+        "x-forwarded-for": "10.166.27.61",
         "x-Called-Station-id": "test",
         "x-User-Location-Info": "test",
         "X-Rat-Type": "test",
