@@ -29,13 +29,22 @@ class test(unittest.TestCase):
         c=check(self,speed_id,X_Application_id,date,X_Application_Auth,result3)
         print('step3 检查提速结果：'+str(c))
         #step4 撤销提速
-        result4 = {}
+        result4 = {'result':{'Done': True,'speeed_id': speed_id}}
         d=delete_speeding(self,speed_id,X_Application_id,date,X_Application_Auth,result4)
         print('step4 撤销提速：'+str(d))
         #step5 检查撤销提速结果
         result5 = {'msg': '对不起，系统异常', 'code': '10000'}
         c2 = check(self, speed_id, X_Application_id, date, X_Application_Auth, result5)
         print('step5 检查撤销提速结果：'+str(c2))
+
+    def test_get_token_faile_with_none_app_id(self):
+        '''获取token时不传入：X-Application-Id'''
+        X_Application_id = ''
+        date, X_Application_Auth = MD5(X_Application_id)
+        result = {"code":"50000"}
+        get_token(self,X_Application_id,date,X_Application_Auth,result)
+
+
 
 
 
