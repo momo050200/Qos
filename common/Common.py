@@ -36,7 +36,7 @@ def check(self,speed_id,X_Application_id,date,X_Application_Auth,results=None):
     result = C.get(self,url,headers=head,results=results)
     return result
 
-def speeding(self,X_Application_id,date,X_Application_Auth,security_token,body=None,results=None):
+def speeding(self,X_Application_id,date,X_Application_Auth,security_token,dst_info="60.174.237.91:242",results=None):
     url = "http://61.160.149.236:10000/qos-api/speeding"
     head = {
         "X-Request-At": date,
@@ -45,7 +45,7 @@ def speeding(self,X_Application_id,date,X_Application_Auth,security_token,body=N
     }
     body = {
         "security_token":security_token,
-        "dst_info":"60.174.237.91:242",
+        "dst_info":dst_info,
         "src_info":"test",
         "user_id":'userid',
         "product_id":"12345678",
