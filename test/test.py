@@ -83,7 +83,7 @@ class test(unittest.TestCase):
         c2 = check(self, speed_id, X_Application_id, date, X_Application_Auth, result5)
         print('step5 检查撤销提速结果：' + str(c2))
         # step6 使用失效的token申请提速
-        result6 = {'code':'5065','msg':'资源申请失败'}
+        result6 = {'code':5065,'message':'资源申请失败'}
         r = speeding(self, X_Application_id, date, X_Application_Auth, token, result6)
         print('step6 使用失效的token申请提速:' + str(r))
 
@@ -96,7 +96,7 @@ class test(unittest.TestCase):
         print('step1 获取token：' + str(token))
         # step2 使用错误的token申请提速
         wrong_token=token+'123'
-        result2 = {'code':'5065','msg':'资源申请失败'}
+        result2 = {'code':5065,'message':'资源申请失败'}
         r = speeding(self, X_Application_id, date, X_Application_Auth, wrong_token, result2)
         print('step2 使用错误的token申请提速:' + str(r))
 
