@@ -2,7 +2,16 @@
 
 from common_interface import CommonInterface as C
 
-def get_token(self, X_Application_id,date,X_Application_Auth):
+
+'''
+    参数说明：
+    X_Application_id：app_id
+    date：X-Request-At
+    X_Application_Auth：X_Application_Auth
+    
+'''
+
+def get_token(self, X_Application_id,date,X_Application_Auth,results=None):
     url = "http://61.160.149.236:10000/qos-api/t1?APP_ID=" + X_Application_id
     head = {
         "x-up-calling-line-id": "15366189548",
@@ -14,20 +23,20 @@ def get_token(self, X_Application_id,date,X_Application_Auth):
         "X-Request-At": date,
         "X-Application-Id": X_Application_id
     }
-    result = C.get(self,url,data=None,headers=head)
+    result = C.get(self,url,data=None,headers=head,results=results)
     return result
 
-def check(self,speed_id,X_Application_id,date,X_Application_Auth):
+def check(self,speed_id,X_Application_id,date,X_Application_Auth,results=None):
     url = "http://61.160.149.236:10000/qos-api/speeding?speeed_id=" + speed_id
     head = {
         "X-Request-At": date,
         "X-Application-Id": X_Application_id,
         "X_Application_Auth": X_Application_Auth,
     }
-    result = C.get(self,url,headers=head)
+    result = C.get(self,url,headers=head,results=results)
     return result
 
-def speeding(self,X_Application_id,date,X_Application_Auth,security_token):
+def speeding(self,X_Application_id,date,X_Application_Auth,security_token,results=None):
     url = "http://61.160.149.236:10000/qos-api/speeding"
     head = {
         "X-Request-At": date,
@@ -43,17 +52,17 @@ def speeding(self,X_Application_id,date,X_Application_Auth,security_token):
         "level":"3",
         "max_volume":"1"
     }
-    result = C.post(self,url,data=body,headers=head)
+    result = C.post(self,url,data=body,headers=head,results=results)
     return result
 
-def split_speed(self,speed_id,X_Application_id,date,X_Application_Auth):
+def delete_speeding(self,speed_id,X_Application_id,date,X_Application_Auth,results=None):
     url = "http://61.160.149.236:10000/qos-api/speeding?speeed_id=" + speed_id
     head = {
         "X-Request-At": date,
         "X-Application-Id": X_Application_id,
         "X_Application_Auth": X_Application_Auth,
     }
-    result = C.delete(self,url,headers=head)
+    result = C.delete(self,url,headers=head,results=results)
     return result
 
 
