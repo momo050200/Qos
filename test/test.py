@@ -108,11 +108,31 @@ class test(unittest.TestCase):
         r = speeding(self, X_Application_id, date, X_Application_Auth, wrong_token, result2)
         print('step2 使用错误的token申请提速:' + str(r))
 
+    def  test_dst_info_illegal(self):
+        '''sp发起，访问提速平台,参数非法,创建提速通道失败'''
+        X_Application_id = '12345678'
+        date, X_Application_Auth = MD5(X_Application_id)
+        # step1 获取token
+        token = get_token(self, X_Application_id, date, X_Application_Auth)['result']
+        print('step1 获取token：' + str(token))
+        dst_info='123123'
+        # step2 申请提速
+        result2 ={'code':5065,'message':'资源申请失败'}
+        r = speeding(self, X_Application_id, date, X_Application_Auth, token,dst_info=dst_info,results=result2)
+        print('step2 dst_info参数非法，创建提速失败:' + str(r))
 
-
-
-
-
+    # def  test_dst_info_not_exist(self):
+    #     '''sp发起，访问提速平台,参数合法但在系统中不存在,创建提速通道失败'''
+    #     X_Application_id = '12345678'
+    #     date, X_Application_Auth = MD5(X_Application_id)
+    #     # step1 获取token
+    #     token = get_token(self, X_Application_id, date, X_Application_Auth)['result']
+    #     print('step1 获取token：' + str(token))
+    #     dst_info='10.1.7.9:2'
+    #     # step2 申请提速
+    #     # result2 ={'code':5065,'message':'资源申请失败'}
+    #     r = speeding(self, X_Application_id, date, X_Application_Auth, token,dst_info=dst_info)
+    #     print('step2 dst_info合法但系统不存在，提速失败:' + str(r))
 
 
 
