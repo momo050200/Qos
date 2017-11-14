@@ -44,6 +44,20 @@ class test(unittest.TestCase):
         result = {"code":"50000"}
         get_token(self,X_Application_id,date,X_Application_Auth,result)
 
+    def test_get_token_faile_with_wrong_app_id(self):
+        '''获取token时传入：X-Application-Id非法'''
+        X_Application_id = 'abc#2323434'
+        date, X_Application_Auth = MD5(X_Application_id)
+        result = {"code":"50000"}
+        get_token(self,X_Application_id,date,X_Application_Auth,result)
+
+    def test_get_token_faile_with_app_id_not_in_system(self):
+        '''获取token时传入：X-Application-Id在系统中不存在'''
+        X_Application_id = '9876654321'
+        date, X_Application_Auth = MD5(X_Application_id)
+        result = {"code":"50000"}
+        get_token(self,X_Application_id,date,X_Application_Auth,result)
+
 
 
 
