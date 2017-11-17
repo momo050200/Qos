@@ -2,7 +2,7 @@
 
 import unittest
 from common.MD5 import MD5
-from common.Common import get_token,speeding,check,delete_speeding
+from common.Common import get_token,speeding,check,delete_speeding,remove_product,add_product
 from time import sleep
 
 class test(unittest.TestCase):
@@ -23,6 +23,8 @@ class test(unittest.TestCase):
     #     #step2 申请提速
     #     result2 = {'result':{'Done':'True'}}
     #     r=speeding(self,X_Application_id,date,X_Application_Auth,token,result2)
+    #     # r=speeding(self,X_Application_id,date,X_Application_Auth,token)
+    #
     #     print('step2 申请提速:'+str(r))
     #     speed_id=r['result']['speeed_id']
     #     #step3 检查提速结果
@@ -37,7 +39,7 @@ class test(unittest.TestCase):
     #     result5 = {'msg': '对不起，系统异常', 'code': '10000'}
     #     c2 = check(self, speed_id, X_Application_id, date, X_Application_Auth, result5)
     #     print('step5 检查撤销提速结果：'+str(c2))
-    #
+
     # def test_get_token_faile_with_none_app_id(self):
     #     '''获取token时不传入：X-Application-Id'''
     #     X_Application_id = ''
@@ -95,38 +97,35 @@ class test(unittest.TestCase):
     #     result6 = {'code':5065,'message':'资源申请失败'}
     #     r = speeding(self, X_Application_id, date, X_Application_Auth, token, result6)
     #     print('step6 使用失效的token申请提速:' + str(r))
-
-
-
-
-    def test_with_speed_id_timeout(self):
-        '''提速后，等待speed_id失效后，使用失效speed_id'''
-        X_Application_id = '12345678'
-        date, X_Application_Auth = MD5(X_Application_id)
-        # step1 获取token
-        token = get_token(self, X_Application_id, date, X_Application_Auth)['result']
-        print('step1 获取token：' + str(token))
-        # step2 申请提速
-        result2 = {'result': {'Done': 'True'}}
-        r = speeding(self, X_Application_id, date, X_Application_Auth, token, result2)
-        print('step2 申请提速:' + str(r))
-        speed_id = r['result']['speeed_id']
-        # step3 检查提速结果
-        result3 = {'msg': '成功', 'code': '0'}
-        c = check(self, speed_id, X_Application_id, date, X_Application_Auth, result3)
-        print('step3 检查提速结果：' + str(c))
-        # step4,等待提速时长结束，提速时长默认3分钟
-        sleep(180)
-        print('step4 等待提速时长结束')
-        # step5 检查撤销提速结果
-        result5 = {'msg': '对不起，系统异常', 'code': '10000'}
-        c2 = check(self, speed_id, X_Application_id, date, X_Application_Auth, result5)
-        print('step5 检查撤销提速结果：' + str(c2))
-        # step6 使用失效的token申请提速
-        result6 = {'code':5065,'message':'资源申请失败'}
-        r = speeding(self, X_Application_id, date, X_Application_Auth, token, result6)
-        print('step6 使用失效的token申请提速:' + str(r))
-
+    #
+    # def test_with_speed_id_timeout(self):
+    #     '''提速后，等待speed_id失效后，使用失效speed_id'''
+    #     X_Application_id = '12345678'
+    #     date, X_Application_Auth = MD5(X_Application_id)
+    #     # step1 获取token
+    #     token = get_token(self, X_Application_id, date, X_Application_Auth)['result']
+    #     print('step1 获取token：' + str(token))
+    #     # step2 申请提速
+    #     result2 = {'result': {'Done': 'True'}}
+    #     r = speeding(self, X_Application_id, date, X_Application_Auth, token, result2)
+    #     print('step2 申请提速:' + str(r))
+    #     speed_id = r['result']['speeed_id']
+    #     # step3 检查提速结果
+    #     result3 = {'msg': '成功', 'code': '0'}
+    #     c = check(self, speed_id, X_Application_id, date, X_Application_Auth, result3)
+    #     print('step3 检查提速结果：' + str(c))
+    #     # step4,等待提速时长结束，提速时长默认3分钟
+    #     sleep(180)
+    #     print('step4 等待提速时长结束')
+    #     # step5 检查撤销提速结果
+    #     result5 = {'msg': '对不起，系统异常', 'code': '10000'}
+    #     c2 = check(self, speed_id, X_Application_id, date, X_Application_Auth, result5)
+    #     print('step5 检查撤销提速结果：' + str(c2))
+    #     # step6 使用失效的token申请提速
+    #     result6 = {'code':5065,'message':'资源申请失败'}
+    #     r = speeding(self, X_Application_id, date, X_Application_Auth, token, result6)
+    #     print('step6 使用失效的token申请提速:' + str(r))
+    #
     # def test_token_on_timeout(self):
     #     '''提速时，token失效时间180s，当申请token后179s，申请提速，成功'''
     #     X_Application_id = '12345678'
@@ -139,7 +138,7 @@ class test(unittest.TestCase):
     #     # step2 使用未失效的token申请提速
     #     result2 = {'result': {'Done': 'True'}}
     #     r = speeding(self, X_Application_id, date, X_Application_Auth, token, result2)
-    #     print('step2 使用濒临失效的token申请提速:' + str(r))
+    #     print('step2 使用失效的token申请提速:' + str(r))
     #
     # def test_token_timeout(self):
     #     '''提速时，使用已失效的token'''
@@ -154,7 +153,7 @@ class test(unittest.TestCase):
     #     result2 = {'code':5065,'message':'资源申请失败'}
     #     r = speeding(self, X_Application_id, date, X_Application_Auth, token, result2)
     #     print('step2 使用失效的token申请提速:' + str(r))
-
+    #
     # def test_token_wrong(self):
     #     '''提速时，token错误'''
     #     X_Application_id = '12345678'
@@ -167,7 +166,7 @@ class test(unittest.TestCase):
     #     result2 = {'code':5065,'message':'资源申请失败'}
     #     r = speeding(self, X_Application_id, date, X_Application_Auth, wrong_token, result2)
     #     print('step2 使用错误的token申请提速:' + str(r))
-
+    #
     # def  test_dst_info_illegal(self):
     #     '''sp发起，访问提速平台,参数非法,创建提速通道失败'''
     #     X_Application_id = '12345678'
@@ -194,6 +193,30 @@ class test(unittest.TestCase):
     #     r = speeding(self, X_Application_id, date, X_Application_Auth, token,dst_info=dst_info,results=result2)
     #     print('step2 dst_info合法但系统不存在，提速失败:' + str(r))
 
+
+    def test_remove_link_and_check(self):
+        '''库里面有3条链路情况下，删除全部链路并校验是否能够提速'''
+        product_key=['192.168.203.65:3868','192.168.203.65:10001','192.168.203.65:10002']
+        result_remove={"code":"0","msg":"成功"}
+        #删除全部链路
+        for i in range(len(product_key)):
+            link_remove=remove_product(self,product_key[i],result_remove)
+            print('step'+str(i)+ "删除链路：" +str(link_remove))
+        #MD5加密
+        X_Application_id = '12345678'
+        date, X_Application_Auth = MD5(X_Application_id)
+        # step3 获取token
+        token = get_token(self, X_Application_id, date, X_Application_Auth)['result']
+        print('step3 获取token：' + str(token))
+        # step4 申请提速
+        result2 = {'code': 5065, 'message': '资源申请失败'}
+        r = speeding(self, X_Application_id, date, X_Application_Auth, token,result2)
+        print('step4 申请提速:' + str(r))
+        #重新新增被删除的3条链路
+        result_add={'code':'0','msg':'成功'}
+        for i in range(len(product_key)):
+            link_add = add_product(self, node_ip_port=product_key[i], results=result_add)
+            print('step' + str(i) + "新增链路：" + str(link_add))
 
 
 if __name__ == "__main__":
