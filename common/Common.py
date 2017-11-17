@@ -27,7 +27,7 @@ def get_token(self, X_Application_id,date,X_Application_Auth,results=None):
     return result
 
 def check(self,speed_id,X_Application_id,date,X_Application_Auth,results=None):
-    url = "http://61.160.149.236:10000/qos-api/speeding?speeed_id=" + speed_id
+    url = "http://61.160.149.236:10000/qos-api/speeding?speeed_id=aar_" + speed_id
     head = {
         "X-Request-At": date,
         "X-Application-Id": X_Application_id,
