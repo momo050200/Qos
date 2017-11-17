@@ -96,6 +96,9 @@ class test(unittest.TestCase):
     #     r = speeding(self, X_Application_id, date, X_Application_Auth, token, result6)
     #     print('step6 使用失效的token申请提速:' + str(r))
 
+
+
+
     def test_with_speed_id_timeout(self):
         '''提速后，等待speed_id失效后，使用失效speed_id'''
         X_Application_id = '12345678'
