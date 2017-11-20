@@ -35,8 +35,7 @@ class test(unittest.TestCase):
         print('step4 撤销提速：'+str(d))
         #step5 检查撤销提速结果
         result5 = {'msg': '对不起，系统异常', 'code': '10000'}
-        # c2 = check(self, speed_id, X_Application_id, date, X_Application_Auth, result5)
-        c2 = check(self, speed_id, X_Application_id, date, X_Application_Auth)
+        c2 = check(self, speed_id, X_Application_id, date, X_Application_Auth, result5)
         print('step5 检查撤销提速结果：'+str(c2))
 
     # def test_02_get_token_faile_with_none_app_id(self):
