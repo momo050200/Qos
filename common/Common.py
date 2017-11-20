@@ -17,7 +17,7 @@ def get_token(self, X_Application_id,date,X_Application_Auth,results=None):
         # "x-up-calling-line-id": "17798502661",
         # "x-forwarded-for": "10.129.201.176",
         "x-up-calling-line-id": "13390905442",
-        "x-forwarded-for": "49.90.4.96",
+        "x-forwarded-for": "49.95.221.158",
         "x-Called-Station-id": "test",
         "x-User-Location-Info": "test",
         "X-Rat-Type": "test",
@@ -58,7 +58,7 @@ def speeding(self,X_Application_id,date,X_Application_Auth,security_token,result
     return result
 
 def delete_speeding(self,speed_id,X_Application_id,date,X_Application_Auth,results=None):
-    url = "http://61.160.149.236:10000/qos-api/speeding?speeed_id=aar_" + speed_id
+    url = "http://61.160.149.236:10000/qos-api/speeding?speeed_id=" + speed_id
     head = {
         "X-Request-At": date,
         "X-Application-Id": X_Application_id,
