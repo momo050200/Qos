@@ -14,10 +14,10 @@ from common_interface import CommonInterface as C
 def get_token(self, X_Application_id,date,X_Application_Auth,results=None):
     url = "http://61.160.149.236:10000/qos-api/t1?APP_ID=12345678"
     head = {
-        # "x-up-calling-line-id": "17798502661",
-        # "x-forwarded-for": "10.129.201.176",
-        "x-up-calling-line-id": "13390905442",
-        "x-forwarded-for": "49.95.221.158",
+        # "x-up-calling-line-id": "13390905442",
+        # "x-forwarded-for": "49.90.139.171",
+        "x-up-calling-line-id": "17397952473",
+        "x-forwarded-for": "10.148.238.18",
         "x-Called-Station-id": "test",
         "x-User-Location-Info": "test",
         "X-Rat-Type": "test",
@@ -29,7 +29,7 @@ def get_token(self, X_Application_id,date,X_Application_Auth,results=None):
     return result
 
 def check(self,speed_id,X_Application_id,date,X_Application_Auth,results=None):
-    url = "http://61.160.149.236:10000/qos-api/speeding?speeed_id=aar_" + speed_id
+    url = "http://61.160.149.236:10000/qos-api/speeding?speeed_id=" + speed_id
     head = {
         "X-Request-At": date,
         "X-Application-Id": X_Application_id,
