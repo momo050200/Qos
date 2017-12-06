@@ -10,7 +10,7 @@ class test(unittest.TestCase):
         self.X_Application_id = '12345678'
         self.date, self.X_Application_Auth = MD5(self.X_Application_id)
         self.x_up_calling_line_id = "17397952473"
-        self.x_forwarded_for = "10.252.20.64"
+        self.x_forwarded_for = "10.135.118.220"
         self.head_get_token = {
             "X-Up-Calling-Line-Id": self.x_up_calling_line_id,
             "x-Forwarded-For": self.x_forwarded_for,
@@ -138,7 +138,7 @@ class test(unittest.TestCase):
         # step2 使用错误的token申请提速
         wrong_token=token+'123'
         result2 = {"ResultCode":254,"ResultMessage":"Auth Failed"}
-        r = speeding_tencent(self, self.head, token, result2)
+        r = speeding_tencent(self, self.head, wrong_token,result2)
         print('step2 使用错误的token申请提速:' + str(r))
 
     def  test_07_dst_info_illegal_1(self):
@@ -187,30 +187,30 @@ class test(unittest.TestCase):
         result2 ={"ResultCode":254,"ResultMessage":"Auth Failed"}
         r = speeding_tencent(self, self.head, token,dst_info_ip=dst_info,results=result2)
         print('step2 DestinationIpAdress="10.23.22.726"，创建提速失败:' + str(r))
-    #
-    # def test_13_turing_success(self):
-    #     '''链路轮巡验证：码段对应两个加速通道，动态删除其中一条链路，使用另一条链路加速成功'''    #
-    #     # step1 删除链路1
-    #     product_key = "192.168.203.65:10002"
-    #     result1 = {"code":"0","msg":"成功"}
-    #     r = remove_product(self,product_key=product_key,results=result1)
-    #     print('step1 删除链路：' + product_key)
-    #     # step2 获取token
-    #     token = get_token(self, self.head_get_token)['result']
-    #     print('step2 获取token：' + str(token))
-    #     # step3 使用剩余的链路申请提速
-    #     result3 = {'result': {'Done': 'True'}}
-    #     r = speeding_tencent(self, self.head, token, results=result3)
-    #     print('step3 使用剩余链路申请提速:' + str(r))
-    #     speed_id = r['result']['speeed_id']
-    #     # step4 检查提速结果
-    #     result4 = {'msg': '成功', 'code': '0'}
-    #     c = check(self, speed_id,self.head, result4)
-    #     print('step4 检查提速结果：' + str(c))
-    #     # step5 重新添加step1中删除的链路
-    #     result5 = {"code":"0","msg":"成功","body":{"key":"192.168.203.65:10002"},"head":{}}
-    #     a = add_product(self,results=result5)
-    #     print('step5 重新添加step1中删除的链路：' + str(a))
+
+    def test_13_turing_success(self):
+        '''链路轮巡验证：码段对应两个加速通道，动态删除其中一条链路，使用另一条链路加速成功'''    #
+        # step1 删除链路1
+        product_key = "192.168.203.65:10002"
+        result1 = {"code":"0","msg":"成功"}
+        r = remove_product(self,product_key=product_key,results=result1)
+        print('step1 删除链路：' + product_key)
+        # step2 获取token
+        token = get_token(self, self.head_get_token)['result']
+        print('step2 获取token：' + str(token))
+        # step3 使用剩余的链路申请提速
+        result3 = {'result': {'Done': 'True'}}
+        r = speeding_tencent(self, self.head, token, results=result3)
+        print('step3 使用剩余链路申请提速:' + str(r))
+        speed_id = r['result']['speeed_id']
+        # step4 检查提速结果
+        result4 = {'msg': '成功', 'code': '0'}
+        c = check(self, speed_id,self.head, result4)
+        print('step4 检查提速结果：' + str(c))
+        # step5 重新添加step1中删除的链路
+        result5 = {"code":"0","msg":"成功","body":{"key":"192.168.203.65:10002"},"head":{}}
+        a = add_product(self,results=result5)
+        print('step5 重新添加step1中删除的链路：' + str(a))
     #
     #
     # def test_14_remove_link_and_check(self):
