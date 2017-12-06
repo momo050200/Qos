@@ -1,6 +1,7 @@
 #coding=utf-8
 
 from common_interface import CommonInterface as C
+import json
 
 
 '''
@@ -35,6 +36,48 @@ def speeding(self,head,security_token,results=None,dst_info="60.174.237.91:242",
         "level":"3",
         "max_volume":"1"
     }
+    result = C.post(self,url,data=body,headers=head,results=results)
+    return result
+
+def speeding_tencent(self,head,security_token,results=None,dst_info_ip="60.174.237.91",dst_port=2220,req_id='DynamicQoS'):
+    url = base_url + req_id
+    body = {
+        "security_token":security_token,
+        "productid":"12345678",
+        "userid":"376434384",
+        "UserIdentifier":{
+            "PublicIP":"x.x.x.x",
+            "IP":"x.x.x.x",
+            "IMSI":"460030123456789",
+            "MSISDN":"+8613810005678"
+        },
+        "APN":"APNtest",
+        "ServiceId":"BufferedStreamingVideo",
+        "CPSPID":"SPtest",
+        "ResourceFeatureProperties":[
+            {
+                "Type":1,
+                "Priority":1,
+                "FlowProperties":[
+                    {
+                        "Direction":2,
+                        "SourceIpAdress":"x.x.x.x",
+                        "DestinationIpAdress":dst_info_ip,
+                        "SourcePort":dst_port,
+                        "DestinationPort":"",
+                        "Protocol":"UDP",
+                        "MaximumUpStreamSpeedRate":1000000,
+                        "MaximumDownStreamSpeedRate":4000000
+                    }
+                ],
+                "MinimumUpStreamSpeedRate":200000,
+                "MinimumDownStreamSpeedRate":400000
+            }
+        ],
+        "Duration":600,
+        "CallBackURL":"http://XXXXXXXXXXXXXXXXXXX"
+    }
+    body = json.dumps(body)
     result = C.post(self,url,data=body,headers=head,results=results)
     return result
 
