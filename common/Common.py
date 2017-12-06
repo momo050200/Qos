@@ -12,7 +12,7 @@ from common_interface import CommonInterface as C
 '''
 
 
-def get_token(self,head,results=None,req_id='t1?APP_ID=12345678'):
+def get_token(self,head,results=None,req_id='t1?appid=12345678'):
     global base_url
     base_url = "http://61.160.149.236:10000/qos-api/"
     url = base_url+req_id
