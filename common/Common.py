@@ -12,42 +12,20 @@ from common_interface import CommonInterface as C
 '''
 
 
-def get_token(self,X_Application_id,date,X_Application_Auth,results=None, req_id='t1?APP_ID=12345678'):
+def get_token(self,head,results=None,req_id='t1?APP_ID=12345678'):
     global base_url
     base_url = "http://61.160.149.236:10000/qos-api/"
     url = base_url+req_id
-    head = {
-        "x-up-calling-line-id": "17397952473",
-        "x-forwarded-for": "10.252.20.64",
-        # "x-up-calling-line-id": "17397952473",
-        # "x-forwarded-for": "10.148.238.18",
-        "x-Called-Station-id": "test",
-        "x-User-Location-Info": "test",
-        "X-Rat-Type": "test",
-        "X-Application-Auth": X_Application_Auth,
-        "X-Request-At": date,
-        "X-Application-Id": X_Application_id
-    }
     result = C.get(self,url,data=None,headers=head,results=results)
     return result
 
-def check(self,speed_id,X_Application_id,date,X_Application_Auth,results=None,req_id='speeding?speeed_id='):
+def check(self,speed_id,head,results=None,req_id='speeding?speeed_id='):
     url = base_url + req_id+ speed_id
-    head = {
-        "X-Request-At": date,
-        "X-Application-Id": X_Application_id,
-        "X-Application-Auth": X_Application_Auth,
-    }
     result = C.get(self,url,headers=head,results=results)
     return result
 
-def speeding(self,X_Application_id,date,X_Application_Auth,security_token,results=None,dst_info="60.174.237.91:242",req_id='speeding'):
+def speeding(self,head,security_token,results=None,dst_info="60.174.237.91:242",req_id='speeding'):
     url = base_url + req_id
-    head = {
-        "X-Request-At": date,
-        "X-Application-Id": X_Application_id,
-        "X-Application-Auth": X_Application_Auth,
-    }
     body = {
         "security_token":security_token,
         "dst_info":dst_info,
@@ -60,13 +38,8 @@ def speeding(self,X_Application_id,date,X_Application_Auth,security_token,result
     result = C.post(self,url,data=body,headers=head,results=results)
     return result
 
-def delete_speeding(self,speed_id,X_Application_id,date,X_Application_Auth,results=None,req_id='speeding?speeed_id='):
+def delete_speeding(self,speed_id,head,results=None,req_id='speeding?speeed_id='):
     url = base_url + req_id + speed_id
-    head = {
-        "X-Request-At": date,
-        "X-Application-Id": X_Application_id,
-        "X-Application-Auth": X_Application_Auth,
-    }
     result = C.delete(self,url,headers=head,results=results)
     return result
 
