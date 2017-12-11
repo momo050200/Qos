@@ -21,7 +21,7 @@ class test(unittest.TestCase):
             "X-Request-At": self.date,
             "X-Application-Id": self.X_Application_id,
             "X-IMEI-Id":"736547484646484",
-            "X-IMSI-Id":"11111111111"
+            "X-IMSI-Id":"46011021751111"
         }
         self.head = {
             "X-Request-At": self.date,
@@ -233,78 +233,96 @@ class test(unittest.TestCase):
     #     # step1 获取token,x-forwared-for=10.252.64
     #     result = {'error': {'code': '4003', 'message': 'Access Denied!'}}
     #     get_token(self, head, results=result)
-    #
-    # def test_05_01_with_none_X_IMSI_Id(self):
-    #     '''获取token，X-IMSI-Id不传'''
-    #     head = {
-    #         "X-Up-Calling-Line-Id": self.x_up_calling_line_id,
-    #         "X-Forwarded-For": self.x_forwarded_for,
-    #         "X-Called-Station-Id": "test",
-    #         "x-User-Location-Info": "test",
-    #         "X-Rat-Type": "test",
-    #         "X-Application-Auth": self.X_Application_Auth,
-    #         "X-Request-At": self.date,
-    #         "X-Application-Id": self.X_Application_id,
-    #         "X-IMEI-Id": "736547484646484",
-    #     }
-    #     # step1 获取token,X-IMSI-Id不传
-    #     result = {'error': {'code': '4003', 'message': 'Access Denied!'}}
-    #     get_token(self, head, results=result)
-    #
-    # def test_05_02_with_null_X_IMSI_Id(self):
-    #     '''获取token，X-IMSI-Id为空'''
-    #     head = {
-    #         "X-Up-Calling-Line-Id": self.x_up_calling_line_id,
-    #         "X-Forwarded-For": self.x_forwarded_for,
-    #         "X-Called-Station-Id": "test",
-    #         "x-User-Location-Info": "test",
-    #         "X-Rat-Type": "test",
-    #         "X-Application-Auth": self.X_Application_Auth,
-    #         "X-Request-At": self.date,
-    #         "X-Application-Id": self.X_Application_id,
-    #         "X-IMEI-Id": "736547484646484",
-    #         "X-IMSI-Id": ""
-    #     }
-    #     # step1 获取token,X-IMSI-Id为空
-    #     result = {'error': {'code': '4002', 'message': 'Not supported!'}}
-    #     get_token(self, head, results=result)
-    #
-    # def test_05_03_with_wrong_X_IMSI_Id(self):
-    #     '''获取token，X-IMSI-Id错误'''
-    #     head = {
-    #         "X-Up-Calling-Line-Id": self.x_up_calling_line_id,
-    #         "X-Forwarded-For": self.x_forwarded_for,
-    #         "X-Called-Station-Id": "test",
-    #         "x-User-Location-Info": "test",
-    #         "X-Rat-Type": "test",
-    #         "X-Application-Auth": self.X_Application_Auth,
-    #         "X-Request-At": self.date,
-    #         "X-Application-Id": self.X_Application_id,
-    #         "X-IMEI-Id": "736547484646484",
-    #         "X-IMSI-Id": "abcdefg+@#￥"
-    #     }
-    #     # step1 获取token,X-IMSI-Id错误
-    #     result = {'error': {'code': '4002', 'message': 'Not supported!'}}
-    #     get_token(self, head, results=result)
-    #
-    # def test_05_04_with_wrong_X_IMSI_Id(self):
-    #     '''获取token，X-IMSI-Id格式错误（超过11位）'''
-    #     head = {
-    #         "X-Up-Calling-Line-Id": self.x_up_calling_line_id,
-    #         "X-Forwarded-For": self.x_forwarded_for,
-    #         "X-Called-Station-Id": "test",
-    #         "x-User-Location-Info": "test",
-    #         "X-Rat-Type": "test",
-    #         "X-Application-Auth": self.X_Application_Auth,
-    #         "X-Request-At": self.date,
-    #         "X-Application-Id": self.X_Application_id,
-    #         "X-IMEI-Id": "736547484646484",
-    #         "X-IMSI-Id": "111111111110"
-    #     }
-    #     # step1 获取token,X-IMSI-Id错误
-    #     result = {'error': {'code': '4002', 'message': 'Not supported!'}}
-    #     get_token(self, head, results=result)
-    #
+
+    def test_05_01_with_none_X_IMSI_Id(self):
+        '''获取token，X-IMSI-Id不传'''
+        head = {
+            "X-Up-Calling-Line-Id": self.x_up_calling_line_id,
+            "X-Forwarded-For": self.x_forwarded_for,
+            "X-Called-Station-Id": "test",
+            "x-User-Location-Info": "test",
+            "X-Rat-Type": "test",
+            "X-Application-Auth": self.X_Application_Auth,
+            "X-Request-At": self.date,
+            "X-Application-Id": self.X_Application_id,
+            "X-IMEI-Id": "736547484646484",
+        }
+        # step1 获取token,X-IMSI-Id不传
+        result = {'error': {'code': '4003', 'message': 'Access Denied!'}}
+        get_token(self, head, results=result)
+
+    def test_05_02_with_null_X_IMSI_Id(self):
+        '''获取token，X-IMSI-Id为空'''
+        head = {
+            "X-Up-Calling-Line-Id": self.x_up_calling_line_id,
+            "X-Forwarded-For": self.x_forwarded_for,
+            "X-Called-Station-Id": "test",
+            "x-User-Location-Info": "test",
+            "X-Rat-Type": "test",
+            "X-Application-Auth": self.X_Application_Auth,
+            "X-Request-At": self.date,
+            "X-Application-Id": self.X_Application_id,
+            "X-IMEI-Id": "736547484646484",
+            "X-IMSI-Id": ""
+        }
+        # step1 获取token,X-IMSI-Id为空
+        result = {'error': {'code': '4002', 'message': 'Not supported!'}}
+        get_token(self, head, results=result)
+
+    def test_05_03_with_wrong_X_IMSI_Id(self):
+        '''获取token，X-IMSI-Id错误'''
+        head = {
+            "X-Up-Calling-Line-Id": self.x_up_calling_line_id,
+            "X-Forwarded-For": self.x_forwarded_for,
+            "X-Called-Station-Id": "test",
+            "x-User-Location-Info": "test",
+            "X-Rat-Type": "test",
+            "X-Application-Auth": self.X_Application_Auth,
+            "X-Request-At": self.date,
+            "X-Application-Id": self.X_Application_id,
+            "X-IMEI-Id": "736547484646484",
+            "X-IMSI-Id": "abcdefg+@#￥"
+        }
+        # step1 获取token,X-IMSI-Id错误
+        result = {'error': {'code': '4002', 'message': 'Not supported!'}}
+        get_token(self, head, results=result)
+
+    def test_05_04_with_wrong_X_IMSI_Id(self):
+        '''获取token，X-IMSI-Id格式错误（超过11位）'''
+        head = {
+            "X-Up-Calling-Line-Id": self.x_up_calling_line_id,
+            "X-Forwarded-For": self.x_forwarded_for,
+            "X-Called-Station-Id": "test",
+            "x-User-Location-Info": "test",
+            "X-Rat-Type": "test",
+            "X-Application-Auth": self.X_Application_Auth,
+            "X-Request-At": self.date,
+            "X-Application-Id": self.X_Application_id,
+            "X-IMEI-Id": "736547484646484",
+            "X-IMSI-Id": "460110217511115"
+        }
+        # step1 获取token,X-IMSI-Id错误
+        result = {'error': {'code': '4002', 'message': 'Not supported!'}}
+        get_token(self, head, results=result)
+
+    def test_05_05_with_wrong_X_IMSI_Id(self):
+        '''获取token，X-IMSI-Id格式正确，在数据库中不存在'''
+        head = {
+            "X-Up-Calling-Line-Id": self.x_up_calling_line_id,
+            "X-Forwarded-For": self.x_forwarded_for,
+            "X-Called-Station-Id": "test",
+            "x-User-Location-Info": "test",
+            "X-Rat-Type": "test",
+            "X-Application-Auth": self.X_Application_Auth,
+            "X-Request-At": self.date,
+            "X-Application-Id": self.X_Application_id,
+            "X-IMEI-Id": "736547484646484",
+            "X-IMSI-Id": "56011021751111"
+        }
+        # step1 获取token,X-IMSI-Id错误
+        result = {'error': {'code': '4002', 'message': 'Not supported!'}}
+        get_token(self, head, results=result)
+
     # def test_06_01_with_none_X_Application_Id(self):
     #     '''获取token时不传入：X-Application-Id'''
     #     X_Application_id = ''
@@ -476,74 +494,74 @@ class test(unittest.TestCase):
     #     c2 = check(self, speed_id,self.head, result5)
     #     print('step5 检查撤销提速结果：' + str(c2))
     #
-    def  test_10_01_dst_info_illegal(self):
-        '''sp发起，访问提速平台,dst_info格式非法,dst_info='123123',创建提速通道失败'''
-        # step1 获取token
-        token = get_token(self, self.head_get_token)['result']
-        print('step1 获取token：' + str(token))
-        dst_info='123123'
-        # step2 申请提速
-        result2 ={'code':6253,'message':'参数不合法'}
-        r = speeding(self, self.head, token,dst_info=dst_info,results=result2)
-        print('step2 dst_info参数非法，创建提速失败:' + str(r))
-
-    def  test_10_02_dst_info_illegal(self):
-        '''sp发起，访问提速平台,dst_info格式非法,dst_info='10.1.1.335:155'创建提速通道失败'''
-        # step1 获取token
-        token = get_token(self, self.head_get_token)['result']
-        print('step1 获取token：' + str(token))
-        dst_info='10.1.1.335:155'
-        # step2 申请提速
-        result2 ={'code':6253,'message':'参数不合法'}
-        r = speeding(self, self.head, token,dst_info=dst_info,results=result2)
-        print('step2 dst_info参数非法，创建提速失败:' + str(r))
-
-    def  test_10_03_dst_info_illegal(self):
-        '''sp发起，访问提速平台,dst_info格式非法,dst_info='10.1.1.5:'创建提速通道失败'''
-        # step1 获取token
-        token = get_token(self, self.head_get_token)['result']
-        print('step1 获取token：' + str(token))
-        dst_info='10.1.1.5:'
-        # step2 申请提速
-        result2 ={'code':6253,'message':'参数不合法'}
-        r = speeding(self, self.head, token,dst_info=dst_info,results=result2)
-        print('step2 dst_info参数非法，创建提速失败:' + str(r))
-
-    def  test_10_04_dst_info_illegal(self):
-        '''sp发起，访问提速平台,dst_info格式非法,dst_info='10.1.1:155'创建提速通道失败'''
-        '''sp发起，访问提速平台,dst_info格式非法,dst_info='10.1.1:155'创建提速通道失败'''
-        # step1 获取token
-        token = get_token(self, self.head_get_token)['result']
-        print('step1 获取token：' + str(token))
-        dst_info = '10.1.1:155'
-        # step2 申请提速
-        result2 = {'code': 6253, 'message': '参数不合法'}
-        r = speeding(self, self.head, token, dst_info=dst_info, results=result2)
-        print('step2 dst_info参数非法，创建提速失败:' + str(r))
-
-    def  test_10_05_dst_info_illegal(self):
-        '''sp发起，访问提速平台,dst_info格式非法,dst_info='60.174.237.91:0'创建提速通道失败'''
-        '''sp发起，访问提速平台,dst_info格式非法,dst_info='60.174.237.91:0'创建提速通道失败'''
-        # step1 获取token
-        token = get_token(self, self.head_get_token)['result']
-        print('step1 获取token：' + str(token))
-        dst_info = '60.174.237.91:0'
-        # step2 申请提速
-        result2 = {'code': 6253, 'message': '参数不合法'}
-        r = speeding(self, self.head, token, dst_info=dst_info, results=result2)
-        print('step2 dst_info参数非法，创建提速失败:' + str(r))
-
-    def  test_10_06_dst_info_illegal(self):
-        '''sp发起，访问提速平台,dst_info格式非法,dst_info='60.174.237.91:65536'创建提速通道失败'''
-        '''sp发起，访问提速平台,dst_info格式非法,dst_info='60.174.237.91:65536'创建提速通道失败'''
-        # step1 获取token
-        token = get_token(self, self.head_get_token)['result']
-        print('step1 获取token：' + str(token))
-        dst_info = '60.174.237.91:65536'
-        # step2 申请提速
-        result2 = {'code': 6253, 'message': '参数不合法'}
-        r = speeding(self, self.head, token, dst_info=dst_info, results=result2)
-        print('step2 dst_info参数非法，创建提速失败:' + str(r))
+    # def  test_10_01_dst_info_illegal(self):
+    #     '''sp发起，访问提速平台,dst_info格式非法,dst_info='123123',创建提速通道失败'''
+    #     # step1 获取token
+    #     token = get_token(self, self.head_get_token)['result']
+    #     print('step1 获取token：' + str(token))
+    #     dst_info='123123'
+    #     # step2 申请提速
+    #     result2 ={'code':6253,'message':'参数不合法'}
+    #     r = speeding(self, self.head, token,dst_info=dst_info,results=result2)
+    #     print('step2 dst_info参数非法，创建提速失败:' + str(r))
+    #
+    # def  test_10_02_dst_info_illegal(self):
+    #     '''sp发起，访问提速平台,dst_info格式非法,dst_info='10.1.1.335:155'创建提速通道失败'''
+    #     # step1 获取token
+    #     token = get_token(self, self.head_get_token)['result']
+    #     print('step1 获取token：' + str(token))
+    #     dst_info='10.1.1.335:155'
+    #     # step2 申请提速
+    #     result2 ={'code':6253,'message':'参数不合法'}
+    #     r = speeding(self, self.head, token,dst_info=dst_info,results=result2)
+    #     print('step2 dst_info参数非法，创建提速失败:' + str(r))
+    #
+    # def  test_10_03_dst_info_illegal(self):
+    #     '''sp发起，访问提速平台,dst_info格式非法,dst_info='10.1.1.5:'创建提速通道失败'''
+    #     # step1 获取token
+    #     token = get_token(self, self.head_get_token)['result']
+    #     print('step1 获取token：' + str(token))
+    #     dst_info='10.1.1.5:'
+    #     # step2 申请提速
+    #     result2 ={'code':6253,'message':'参数不合法'}
+    #     r = speeding(self, self.head, token,dst_info=dst_info,results=result2)
+    #     print('step2 dst_info参数非法，创建提速失败:' + str(r))
+    #
+    # def  test_10_04_dst_info_illegal(self):
+    #     '''sp发起，访问提速平台,dst_info格式非法,dst_info='10.1.1:155'创建提速通道失败'''
+    #     '''sp发起，访问提速平台,dst_info格式非法,dst_info='10.1.1:155'创建提速通道失败'''
+    #     # step1 获取token
+    #     token = get_token(self, self.head_get_token)['result']
+    #     print('step1 获取token：' + str(token))
+    #     dst_info = '10.1.1:155'
+    #     # step2 申请提速
+    #     result2 = {'code': 6253, 'message': '参数不合法'}
+    #     r = speeding(self, self.head, token, dst_info=dst_info, results=result2)
+    #     print('step2 dst_info参数非法，创建提速失败:' + str(r))
+    #
+    # def  test_10_05_dst_info_illegal(self):
+    #     '''sp发起，访问提速平台,dst_info格式非法,dst_info='60.174.237.91:0'创建提速通道失败'''
+    #     '''sp发起，访问提速平台,dst_info格式非法,dst_info='60.174.237.91:0'创建提速通道失败'''
+    #     # step1 获取token
+    #     token = get_token(self, self.head_get_token)['result']
+    #     print('step1 获取token：' + str(token))
+    #     dst_info = '60.174.237.91:0'
+    #     # step2 申请提速
+    #     result2 = {'code': 6253, 'message': '参数不合法'}
+    #     r = speeding(self, self.head, token, dst_info=dst_info, results=result2)
+    #     print('step2 dst_info参数非法，创建提速失败:' + str(r))
+    #
+    # def  test_10_06_dst_info_illegal(self):
+    #     '''sp发起，访问提速平台,dst_info格式非法,dst_info='60.174.237.91:65536'创建提速通道失败'''
+    #     '''sp发起，访问提速平台,dst_info格式非法,dst_info='60.174.237.91:65536'创建提速通道失败'''
+    #     # step1 获取token
+    #     token = get_token(self, self.head_get_token)['result']
+    #     print('step1 获取token：' + str(token))
+    #     dst_info = '60.174.237.91:65536'
+    #     # step2 申请提速
+    #     result2 = {'code': 6253, 'message': '参数不合法'}
+    #     r = speeding(self, self.head, token, dst_info=dst_info, results=result2)
+    #     print('step2 dst_info参数非法，创建提速失败:' + str(r))
 
     '''
         动态新增、删除测试用例
@@ -573,7 +591,7 @@ class test(unittest.TestCase):
     #     result5 = {"code":"0","msg":"成功","body":{"key":"192.168.203.65:10002"},"head":{}}
     #     a = add_product(self,node_ip_port='192.168.203.65:10002',results=result5)
     #     print('step5 重新添加step1中删除的链路：' + str(a))
-    #
+
     # def test_12_remove_link_and_check(self):
     #     '''库里面有3条链路情况下，删除全部链路并校验是否能够提速'''
     #     product_key = ['192.168.203.65:3868', '192.168.203.65:10001', '192.168.203.65:10002']
@@ -588,7 +606,7 @@ class test(unittest.TestCase):
     #     token = get_token(self, self.head_get_token)['result']
     #     print('step2 获取token：' + str(token))
     #     # step4 申请提速
-    #     result2 = {'code': 10000, 'message': '对不起，系统异常'}
+    #     result2 = {'code': 6000, 'message': '暂时不能提速'}
     #     r = speeding(self, self.head, token, result2)
     #     print('step3 申请提速:' + str(r))
     #     # 重新新增被删除的3条链路
@@ -602,7 +620,7 @@ class test(unittest.TestCase):
     #     print('step5 获取token：' + str(token))
     #     # step6 申请提速
     #     result6 = {'msg': '成功', 'code': '0'}
-    #     r = speeding(self, self.head, token, result6)
+    #     r = speeding(self, self.head, token, )
     #     print('step6 申请提速:' + str(r))
 
     # def test_13_add_with_wrong_node_ip_port(self):
