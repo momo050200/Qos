@@ -5,7 +5,7 @@ from common.MD5 import MD5
 from common.Common import *
 from time import sleep
 
-class test(unittest.TestCase):
+class test_xunyou(unittest.TestCase):
     def setUp(self):
         self.X_Application_id = '12345678'
         self.date, self.X_Application_Auth = MD5(self.X_Application_id)
@@ -21,7 +21,7 @@ class test(unittest.TestCase):
             "X-Request-At": self.date,
             "X-Application-Id": self.X_Application_id,
             "X-IMEI-Id":"736547484646484",
-            "X-IMSI-Id":"11111111111"
+            "X-IMSI-Id":"46011021751234"
         }
         self.head = {
             "X-Request-At": self.date,
@@ -252,7 +252,7 @@ class test(unittest.TestCase):
         get_token(self, head, results=result)
 
     def test_05_02_with_null_X_IMSI_Id(self):
-        '''获取token，X-IMSI-Id为空'''
+        '''获取token，X-IMSI-Id为空，提速失败'''
         head = {
             "X-Up-Calling-Line-Id": self.x_up_calling_line_id,
             "X-Forwarded-For": self.x_forwarded_for,
@@ -266,8 +266,12 @@ class test(unittest.TestCase):
             "X-IMSI-Id": ""
         }
         # step1 获取token,X-IMSI-Id为空
-        result = {'error': {'code': '4002', 'message': 'Not supported!'}}
-        get_token(self, head, results=result)
+        token = get_token(self, self.head_get_token)['result']
+        print('step1 获取token：'+str(token))
+        # step2 使用未传imsi的token申请提速
+        result2 = {'code':6254,'message':'认证失败'}
+        r = speeding(self, self.head, token)
+        print('step2 使用未传imsi的token申请提速:' + str(r))
 
     def test_05_03_with_wrong_X_IMSI_Id(self):
         '''获取token，X-IMSI-Id错误'''
@@ -285,7 +289,7 @@ class test(unittest.TestCase):
         }
         # step1 获取token,X-IMSI-Id错误
         result = {'error': {'code': '4002', 'message': 'Not supported!'}}
-        get_token(self, head, results=result)
+        get_token(self, head,result)
 
     def test_05_04_with_wrong_X_IMSI_Id(self):
         '''获取token，X-IMSI-Id格式错误（超过11位）'''
@@ -299,7 +303,7 @@ class test(unittest.TestCase):
             "X-Request-At": self.date,
             "X-Application-Id": self.X_Application_id,
             "X-IMEI-Id": "736547484646484",
-            "X-IMSI-Id": "111111111110"
+            "X-IMSI-Id": "4601102175123412"
         }
         # step1 获取token,X-IMSI-Id错误
         result = {'error': {'code': '4002', 'message': 'Not supported!'}}
@@ -506,7 +510,7 @@ class test(unittest.TestCase):
         dst_info='10.1.1.5:'
         # step2 申请提速
         result2 ={'code':6253,'message':'参数不合法'}
-        r = speeding(self, self.head, token,dst_info=dst_info,results=result2)
+        r = speeding(self, self.head, token,dst_info=dst_info)
         print('step2 dst_info参数非法，创建提速失败:' + str(r))
 
     def  test_10_04_dst_info_illegal(self):
@@ -549,7 +553,7 @@ class test(unittest.TestCase):
     #     result5 = {"code":"0","msg":"成功","body":{"key":"192.168.203.65:10002"},"head":{}}
     #     a = add_product(self,results=result5)
     #     print('step5 重新添加step1中删除的链路：' + str(a))
-    #
+
     # def test_12_remove_link_and_check(self):
     #     '''库里面有3条链路情况下，删除全部链路并校验是否能够提速'''
     #     product_key = ['192.168.203.65:3868', '192.168.203.65:10001', '192.168.203.65:10002']
@@ -557,13 +561,13 @@ class test(unittest.TestCase):
     #     # 删除全部链路
     #     for i in range(len(product_key)):
     #         link_remove = remove_product(self, product_key[i], result_remove)
-    #         print('step' + str(i) + "删除链路：" + str(link_remove))
+    #         print('step' + str(i) + "删除链路：" +product_key[i]+ str(link_remove))
     #     # MD5加密
     #     # step3 获取token
     #     token = get_token(self, self.head_get_token)['result']
     #     print('step3 获取token：' + str(token))
     #     # step4 申请提速
-    #     result2 = {'code': 5065, 'message': '资源申请失败'}
+    #     result2 = {'code': 10000, 'message': '对不起，系统异常'}
     #     r = speeding(self, self.head, token, result2)
     #     print('step4 申请提速:' + str(r))
     #     # 重新新增被删除的3条链路
@@ -571,7 +575,15 @@ class test(unittest.TestCase):
     #     for i in range(len(product_key)):
     #         link_add = add_product(self, node_ip_port=product_key[i], results=result_add)
     #         print('step' + str(i) + "新增链路：" + str(link_add))
-    #
+    #     # MD5加密
+    #     # step5 获取token
+    #     token = get_token(self, self.head_get_token)['result']
+    #     print('step5 获取token：' + str(token))
+    #     # step6 申请提速
+    #     result6 = {'result': {'Done': 'True'}}
+    #     r = speeding(self, self.head, token,result6)
+    #     print('step6 申请提速:' + str(r))
+
     # def test_13_add_with_wrong_node_ip_port(self):
     #     '''动态新增时，传入的node_ip_port错误'''
     #     node_ip_port = '192.168.203.1:10002'
