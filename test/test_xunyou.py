@@ -550,30 +550,36 @@ class test(unittest.TestCase):
         a = add_product(self,node_ip_port='192.168.203.65:10002',results=result5)
         print('step5 重新添加step1中删除的链路：' + str(a))
 
-    # def test_12_remove_link_and_check(self):
-    #     '''库里面有3条链路情况下，删除全部链路并校验是否能够提速'''
-    #     product_key = ['192.168.203.65:3868', '192.168.203.65:10001', '192.168.203.65:10002']
-    #     result_remove = {"code": "0", "msg": "成功"}
-    #     # 删除全部链路
-    #     print('step1' + "删除链路：")
-    #     for i in range(len(product_key)):
-    #         link_remove = remove_product(self, product_key[i], result_remove)
-    #         print("删除链路" + str(i) + ":" + str(link_remove))
-    #     # MD5加密
-    #     # step3 获取token
-    #     token = get_token(self, self.head_get_token)['result']
-    #     print('step2 获取token：' + str(token))
-    #     # step4 申请提速
-    #     # result2 = {'code': 5065, 'message': '资源申请失败'}
-    #     result2 = {'code': 10000, 'message': '对不起，系统异常'}
-    #     r = speeding(self, self.head, token, result2)
-    #     print('step3 申请提速:' + str(r))
-    #     # 重新新增被删除的3条链路
-    #     print('step4 新增链路：')
-    #     result_add = {'code': '0', 'msg': '成功'}
-    #     for i in range(len(product_key)):
-    #         link_add = add_product(self, node_ip_port=product_key[i], results=result_add)
-    #         print("新增链路" + str(i) +":"+ str(link_add))
+    def test_12_remove_link_and_check(self):
+        '''库里面有3条链路情况下，删除全部链路并校验是否能够提速'''
+        product_key = ['192.168.203.65:3868', '192.168.203.65:10001', '192.168.203.65:10002']
+        result_remove = {"code": "0", "msg": "成功"}
+        # 删除全部链路
+        print('step1' + "删除链路：")
+        for i in range(len(product_key)):
+            link_remove = remove_product(self, product_key[i], result_remove)
+            print("删除链路" + product_key[i] + ":" + str(link_remove))
+        # MD5加密
+        # step3 获取token
+        token = get_token(self, self.head_get_token)['result']
+        print('step2 获取token：' + str(token))
+        # step4 申请提速
+        result2 = {'code': 10000, 'message': '对不起，系统异常'}
+        r = speeding(self, self.head, token, result2)
+        print('step3 申请提速:' + str(r))
+        # 重新新增被删除的3条链路
+        print('step4 新增链路：')
+        result_add = {'code': '0', 'msg': '成功'}
+        for i in range(len(product_key)):
+            link_add = add_product(self, node_ip_port=product_key[i], results=result_add)
+            print("新增链路" + product_key[i] +":"+ str(link_add))
+        # step5 获取token
+        token = get_token(self, self.head_get_token)['result']
+        print('step5 获取token：' + str(token))
+        # step6 申请提速
+        result6 = {'msg': '成功', 'code': '0'}
+        r = speeding(self, self.head, token, result6)
+        print('step6 申请提速:' + str(r))
 
     # def test_13_add_with_wrong_node_ip_port(self):
     #     '''动态新增时，传入的node_ip_port错误'''
