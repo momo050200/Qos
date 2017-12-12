@@ -234,102 +234,76 @@ class test(unittest.TestCase):
     #     result = {'error': {'code': '4003', 'message': 'Access Denied!'}}
     #     get_token(self, head, results=result)
 
-    # def test_05_01_with_none_X_IMSI_Id(self):
-    #     '''获取token，X-IMSI-Id不传'''
-    #     head = {
-    #         "X-Up-Calling-Line-Id": self.x_up_calling_line_id,
-    #         "X-Forwarded-For": self.x_forwarded_for,
-    #         "X-Called-Station-Id": "test",
-    #         "x-User-Location-Info": "test",
-    #         "X-Rat-Type": "test",
-    #         "X-Application-Auth": self.X_Application_Auth,
-    #         "X-Request-At": self.date,
-    #         "X-Application-Id": self.X_Application_id,
-    #         "X-IMEI-Id": "736547484646484",
-    #     }
-    #     # step1 获取token,X-IMSI-Id不传
-    #     result = {'error': {'code': '4003', 'message': 'Access Denied!'}}
-    #     get_token(self, head, results=result)
+    def test_05_01_with_none_X_IMSI_Id(self):
+        '''获取token，X-IMSI-Id不传'''
+        head = {
+            "X-Up-Calling-Line-Id": self.x_up_calling_line_id,
+            "X-Forwarded-For": self.x_forwarded_for,
+            "X-Called-Station-Id": "test",
+            "x-User-Location-Info": "test",
+            "X-Rat-Type": "test",
+            "X-Application-Auth": self.X_Application_Auth,
+            "X-Request-At": self.date,
+            "X-Application-Id": self.X_Application_id,
+            "X-IMEI-Id": "736547484646484",
+        }
+        # step1 获取token,X-IMSI-Id不传
+        result = {'error': {'code': '4003', 'message': 'Access Denied!'}}
+        get_token(self, head, results=result)
 
-    # def test_05_02_with_null_X_IMSI_Id(self):
-    #     '''获取token，X-IMSI-Id为空'''
-    #     head = {
-    #         "X-Up-Calling-Line-Id": self.x_up_calling_line_id,
-    #         "X-Forwarded-For": self.x_forwarded_for,
-    #         "X-Called-Station-Id": "test",
-    #         "x-User-Location-Info": "test",
-    #         "X-Rat-Type": "test",
-    #         "X-Application-Auth": self.X_Application_Auth,
-    #         "X-Request-At": self.date,
-    #         "X-Application-Id": self.X_Application_id,
-    #         "X-IMEI-Id": "736547484646484",
-    #         "X-IMSI-Id": ""
-    #     }
-    #     # step1 获取token,X-IMSI-Id为空
-    #     result = {'error': {'code': '4002', 'message': 'Not supported!'}}
-    #     get_token(self, head, results=result)
-    #     # print(get_token(self, head,))
+    def test_05_02_with_null_X_IMSI_Id(self):
+        '''获取token，X-IMSI-Id为空'''
+        head = {
+            "X-Up-Calling-Line-Id": self.x_up_calling_line_id,
+            "X-Forwarded-For": self.x_forwarded_for,
+            "X-Called-Station-Id": "test",
+            "x-User-Location-Info": "test",
+            "X-Rat-Type": "test",
+            "X-Application-Auth": self.X_Application_Auth,
+            "X-Request-At": self.date,
+            "X-Application-Id": self.X_Application_id,
+            "X-IMEI-Id": "736547484646484",
+            "X-IMSI-Id": ""
+        }
+        # step1 获取token,X-IMSI-Id为空
+        result = {'error': {'message': 'Access Denied!', 'code': '4003'}}
+        get_token(self, head, results=result)
 
-    # def test_05_03_with_wrong_X_IMSI_Id(self):
-    #     '''获取token，X-IMSI-Id错误'''
-    #     head = {
-    #         "X-Up-Calling-Line-Id": self.x_up_calling_line_id,
-    #         "X-Forwarded-For": self.x_forwarded_for,
-    #         "X-Called-Station-Id": "test",
-    #         "x-User-Location-Info": "test",
-    #         "X-Rat-Type": "test",
-    #         "X-Application-Auth": self.X_Application_Auth,
-    #         "X-Request-At": self.date,
-    #         "X-Application-Id": self.X_Application_id,
-    #         "X-IMEI-Id": "736547484646484",
-    #         "X-IMSI-Id": "abcdefg+@#$"
-    #     }
-    #     # step1 获取token,X-IMSI-Id错误
-    #     result = {'error': {'code': '4002', 'message': 'Not supported!'}}
-    #     get_token(self, head, results=result)
-    #     # print(get_token(self, head, ))
-    #
-    # def test_05_04_with_wrong_X_IMSI_Id(self):
-    #     '''获取token，X-IMSI-Id格式错误（超过11位）'''
-    #     head = {
-    #         "X-Up-Calling-Line-Id": self.x_up_calling_line_id,
-    #         "X-Forwarded-For": self.x_forwarded_for,
-    #         "X-Called-Station-Id": "test",
-    #         "x-User-Location-Info": "test",
-    #         "X-Rat-Type": "test",
-    #         "X-Application-Auth": self.X_Application_Auth,
-    #         "X-Request-At": self.date,
-    #         "X-Application-Id": self.X_Application_id,
-    #         "X-IMEI-Id": "736547484646484",
-    #         "X-IMSI-Id": "4601102175011115"
-    #     }
-    #     # step1 获取token,X-IMSI-Id错误
-    #     result = {'error': {'code': '4002', 'message': 'Not supported!'}}
-    #     get_token(self, head, results=result)
-    #     # print(get_token(self, head, ))
-    #
-    # def test_05_05_with_wrong_X_IMSI_Id(self):
-    #     '''获取token，X-IMSI-Id格式正确，在数据库中不存在'''
-    #     head = {
-    #         "X-Up-Calling-Line-Id": self.x_up_calling_line_id,
-    #         "X-Forwarded-For": self.x_forwarded_for,
-    #         "X-Called-Station-Id": "test",
-    #         "x-User-Location-Info": "test",
-    #         "X-Rat-Type": "test",
-    #         "X-Application-Auth": self.X_Application_Auth,
-    #         "X-Request-At": self.date,
-    #         "X-Application-Id": self.X_Application_id,
-    #         "X-IMEI-Id": "736547484646484",
-    #         "X-IMSI-Id": "560110217501111"
-    #     }
-    #     # step1 获取token
-    #     token = get_token(self, self.head_get_token)['result']
-    #     print('step1 获取token：' + str(token))
-    #     # step2 申请提速
-    #     # result2 = {'result': {'Done': 'True'}}
-    #     r = speeding(self, self.head, token,)
-    #     print('step2 申请提速:' + str(r))
+    def test_05_03_with_wrong_X_IMSI_Id(self):
+        '''获取token，X-IMSI-Id错误'''
+        head = {
+            "X-Up-Calling-Line-Id": self.x_up_calling_line_id,
+            "X-Forwarded-For": self.x_forwarded_for,
+            "X-Called-Station-Id": "test",
+            "x-User-Location-Info": "test",
+            "X-Rat-Type": "test",
+            "X-Application-Auth": self.X_Application_Auth,
+            "X-Request-At": self.date,
+            "X-Application-Id": self.X_Application_id,
+            "X-IMEI-Id": "736547484646484",
+            "X-IMSI-Id": "abcdefg+@#$"
+        }
+        # step1 获取token,X-IMSI-Id错误
+        result = {'error': {'message': 'Access Denied!', 'code': '4003'}}
+        get_token(self, head, results=result)
 
+    def test_05_04_with_wrong_X_IMSI_Id(self):
+        '''获取token，X-IMSI-Id格式错误（超过11位）'''
+        head = {
+            "X-Up-Calling-Line-Id": self.x_up_calling_line_id,
+            "X-Forwarded-For": self.x_forwarded_for,
+            "X-Called-Station-Id": "test",
+            "x-User-Location-Info": "test",
+            "X-Rat-Type": "test",
+            "X-Application-Auth": self.X_Application_Auth,
+            "X-Request-At": self.date,
+            "X-Application-Id": self.X_Application_id,
+            "X-IMEI-Id": "736547484646484",
+            "X-IMSI-Id": "4601102175011115"
+        }
+        # step1 获取token,X-IMSI-Id错误
+        result = {'error': {'message': 'Access Denied!', 'code': '4003'}}
+        get_token(self, head, results=result)
 
     # def test_06_01_with_none_X_Application_Id(self):
     #     '''获取token时不传入：X-Application-Id'''
