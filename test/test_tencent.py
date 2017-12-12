@@ -21,7 +21,7 @@ class test_tencent(unittest.TestCase):
             "X-Request-At": self.date,
             "X-Application-Id": self.X_Application_id,
             "X-IMEI-Id": "736547484646484",
-            "X-IMSI-Id": "46011021751234"
+            "X-IMSI-Id": "460110217501234"
         }
         self.head = {
             "X-Request-At": self.date,
@@ -148,7 +148,7 @@ class test_tencent(unittest.TestCase):
         print('step1 获取token：' + str(token))
         dst_info='123123'
         # step2 申请提速
-        result2 ={"ResultCode":255,"ResultMessage":"Failed - unspecified reason"}
+        result2 ={"ResultCode":129,"ResultMessage":"Invalid service information"}
         r = speeding_tencent(self, self.head, token,dst_info_ip=dst_info,results=result2)
         print('step2 DestinationIpAdress="123123"，创建提速失败:' + str(r))
 
@@ -160,7 +160,7 @@ class test_tencent(unittest.TestCase):
         print('step1 获取token：' + str(token))
         dst_port='abcd'
         # step2 申请提速
-        result2 ={"ResultCode":255,"ResultMessage":"Failed - unspecified reason"}
+        result2 ={"ResultCode":129,"ResultMessage":"Invalid service information"}
         r = speeding_tencent(self, self.head, token,dst_port=dst_port,results=result2)
         print('step2 SourcePort="abcd"，提速失败:' + str(r))
 
@@ -173,7 +173,7 @@ class test_tencent(unittest.TestCase):
         print('step1 获取token：' + str(token))
         dst_info = '10.23.226.'
         # step2 申请提速
-        result2 ={"ResultCode":255,"ResultMessage":"Failed - unspecified reason"}
+        result2 ={"ResultCode":129,"ResultMessage":"Invalid service information"}
         r = speeding_tencent(self, self.head, token,dst_info_ip=dst_info,results=result2)
         print('step2 DestinationIpAdress="10.23.226."，创建提速失败:' + str(r))
 
@@ -185,7 +185,7 @@ class test_tencent(unittest.TestCase):
         print('step1 获取token：' + str(token))
         dst_info = '10.23.22.726'
         # step2 申请提速
-        result2 ={"ResultCode":255,"ResultMessage":"Failed - unspecified reason"}
+        result2 ={"ResultCode":129,"ResultMessage":"Invalid service information"}
         r = speeding_tencent(self, self.head, token,dst_info_ip=dst_info,results=result2)
         print('step2 DestinationIpAdress="10.23.22.726"，创建提速失败:' + str(r))
 
@@ -198,7 +198,7 @@ class test_tencent(unittest.TestCase):
         print('step1 获取token：' + str(token))
         dst_port='0'
         # step2 申请提速
-        result2 ={"ResultCode":255,"ResultMessage":"Failed - unspecified reason"}
+        result2 ={"ResultCode":129,"ResultMessage":"Invalid service information"}
         r = speeding_tencent(self, self.head, token,dst_port=dst_port,results=result2)
         print('step2 SourcePort="abcd"，提速失败:' + str(r))
 
@@ -211,7 +211,7 @@ class test_tencent(unittest.TestCase):
         print('step1 获取token：' + str(token))
         dst_port='65536'
         # step2 申请提速
-        result2 ={"ResultCode":255,"ResultMessage":"Failed - unspecified reason"}
+        result2 ={"ResultCode":129,"ResultMessage":"Invalid service information"}
         r = speeding_tencent(self, self.head, token,dst_port=dst_port,results=result2)
         print('step2 SourcePort="abcd"，提速失败:' + str(r))
 
@@ -240,34 +240,34 @@ class test_tencent(unittest.TestCase):
     #     print('step5 重新添加step1中删除的链路：' + str(a))
 
 
-    def test_14_remove_link_and_check(self):
-        '''库里面有3条链路情况下，删除全部链路并校验是否能够提速'''
-        product_key = ['192.168.203.65:3868', '192.168.203.65:10001', '192.168.203.65:10002']
-        result_remove = {"code": "0", "msg": "成功"}
-        # 删除全部链路
-        for i in range(len(product_key)):
-            link_remove = remove_product(self, product_key[i], result_remove)
-            print('step' + str(i) + "删除链路：" + str(link_remove))
-        # MD5加密
-        # step3 获取token
-        token = get_token(self, self.head_get_token)['result']
-        print('step3 获取token：' + str(token))
-        # step4 申请提速
-        result2 = {'code': 6000, 'message': '暂时不能提速'}
-        r = speeding_tencent(self, self.head, token, result2)
-        print('step4 申请提速:' + str(r))
-        # 重新新增被删除的3条链路
-        result_add = {'code': '0', 'msg': '成功'}
-        for i in range(len(product_key)):
-            link_add = add_product(self, node_ip_port=product_key[i], results=result_add)
-            print('step' + str(i) + "新增链路：" + str(link_add))
-        # step6 获取token
-        token = get_token(self, self.head_get_token)['result']
-        print('step3 获取token：' + str(token))
-        # step7 申请提速
-        result2 = {'ResultMessage': 'Successful', 'ResultCode': 0}
-        r = speeding_tencent(self, self.head, token, result2)
-        print('step4 申请提速:' + str(r))
+    # def test_14_remove_link_and_check(self):
+    #     '''库里面有3条链路情况下，删除全部链路并校验是否能够提速'''
+    #     product_key = ['192.168.203.65:3868', '192.168.203.65:10001', '192.168.203.65:10002']
+    #     result_remove = {"code": "0", "msg": "成功"}
+    #     # 删除全部链路
+    #     for i in range(len(product_key)):
+    #         link_remove = remove_product(self, product_key[i], result_remove)
+    #         print('step' + str(i) + "删除链路：" + str(link_remove))
+    #     # MD5加密
+    #     # step3 获取token
+    #     token = get_token(self, self.head_get_token)['result']
+    #     print('step3 获取token：' + str(token))
+    #     # step4 申请提速
+    #     result2 = {'code': 6000, 'message': '暂时不能提速'}
+    #     r = speeding_tencent(self, self.head, token, result2)
+    #     print('step4 申请提速:' + str(r))
+    #     # 重新新增被删除的3条链路
+    #     result_add = {'code': '0', 'msg': '成功'}
+    #     for i in range(len(product_key)):
+    #         link_add = add_product(self, node_ip_port=product_key[i], results=result_add)
+    #         print('step' + str(i) + "新增链路：" + str(link_add))
+    #     # step6 获取token
+    #     token = get_token(self, self.head_get_token)['result']
+    #     print('step3 获取token：' + str(token))
+    #     # step7 申请提速
+    #     result2 = {'ResultMessage': 'Successful', 'ResultCode': 0}
+    #     r = speeding_tencent(self, self.head, token, result2)
+    #     print('step4 申请提速:' + str(r))
 
 
 
