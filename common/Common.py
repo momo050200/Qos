@@ -13,12 +13,13 @@ from IniReader import IniReader
 '''
 
 
-def get_token(self, head, results=None):
+def get_token(self, head,req_id=None, results=None):
     global file_path, base_url
     file_path = '..\common\cfginfo.ini'
     base_url = IniReader(file_path).get_value('url', 'base_url')
-    get_token = IniReader(file_path).get_value('url', 'get_token')
-    url = base_url + get_token
+    if req_id == None:
+        req_id = IniReader(file_path).get_value('url', 'get_token')
+    url = base_url + req_id
     result = C.get(self, url, data=None, headers=head, results=results)
     return result
 
@@ -30,7 +31,7 @@ def check(self, speed_id, head, results=None):
     return result
 
 
-def speeding(self, head, security_token, dst_info=None, results=None, ):
+def speeding(self, head, security_token, dst_info=None, results=None):
     speeding_xunyou = IniReader(file_path).get_value('url', 'speeding_xunyou')
     url = base_url + speeding_xunyou
     body = eval(IniReader(file_path).get_value('speeding_xunyou_body', 'body'))
