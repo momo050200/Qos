@@ -2,6 +2,8 @@
 
 from common_interface import CommonInterface as C
 import json
+from IniReader import IniReader
+
 
 
 '''
@@ -11,11 +13,24 @@ import json
     X-Application-Auth：X_Application_Auth
     
 '''
+class common:
+    def __init__(self):
+        self.file_path = '.\cfginfo.ini'
+        self.base_url = IniReader(self.file_path).get_value('get_token', 'base_url')
+        self.get_token=IniReader(self.file_path).get_value('get_token', 'req_id')
+        self.speeding_xunyou=IniReader(self.file_path).get_value('speeding-xunyou', 'req_id')
+        self.speeding_tencent=IniReader(self.file_path).get_value('speeding-tencent', 'req_id')
+        self.check=IniReader(self.file_path).get_value('check', 'req_id')
+        self.delete=IniReader(self.file_path).get_value('delete', 'req_id')
+        self.add_product=IniReader(self.file_path).get_value('add_product', 'req_id')
+        self.delete_product=IniReader(self.file_path).get_value('delete_product', 'req_id')
+
 
 
 def get_token(self,head,results=None,req_id='t1?appid=12345678'):
     global base_url
     base_url = "http://61.160.149.236:10000/qos-api/"
+
     url = base_url+req_id
     result = C.get(self,url,data=None,headers=head,results=results)
     return result
