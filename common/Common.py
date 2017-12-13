@@ -57,9 +57,10 @@ def speeding_tencent(self, head, security_token, results=None, dst_info_ip=None,
     return result
 
 
-def delete_speeding(self, speed_id, head, results=None):
-    delete_speeding = IniReader(file_path).get_value('url', 'delete_speeding')
-    url = base_url + delete_speeding + speed_id
+def delete_speeding(self, speed_id, head, req_id=None,results=None):
+    if req_id == None:
+        req_id = IniReader(file_path).get_value('url', 'delete_speeding')
+    url = base_url + req_id + speed_id
     result = C.delete(self, url, headers=head, results=results)
     return result
 
