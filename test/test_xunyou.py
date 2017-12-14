@@ -28,28 +28,28 @@ class test(unittest.TestCase):
         正常流程测试用例
         test_01：成功流程
     '''
-    def test_01_successful(self):
-        '''成功流程：获取token，申请提速，检查提速，撤销提速，检查提速'''
-        #step1 获取token
-        token=get_token(self,self.head_get_token)['result']
-        print('step1 获取token：'+str(token))
-        #step2 申请提速
-        result2 = {'result': {'Done': 'True'}}
-        r=speeding(self,self.head,token,result2)
-        print('step2 申请提速:'+str(r))
-        speed_id=r['result']['speeed_id']
-        #step3 检查提速结果
-        result3 = {'msg':'成功','code':'0'}
-        c=check(self,speed_id,self.head,result3)
-        print('step3 检查提速结果：'+str(c))
-        #step4 撤销提速
-        result4 = {'result':{'Done': True,'speeed_id': speed_id}}
-        d=delete_speeding(self,speed_id,self.head,result4)
-        print('step4 撤销提速：'+str(d))
-        #step5 检查撤销提速结果
-        result5 = {'msg': '对不起，系统异常', 'code': '10000'}
-        c2 = check(self, speed_id, self.head, result5)
-        print('step5 检查撤销提速结果：'+str(c2))
+    # def test_01_successful(self):
+    #     '''成功流程：获取token，申请提速，检查提速，撤销提速，检查提速'''
+    #     #step1 获取token
+    #     token=get_token(self,self.head_get_token)['result']
+    #     print('step1 获取token：'+str(token))
+    #     #step2 申请提速
+    #     result2 = {'result': {'Done': 'True'}}
+    #     r=speeding(self,self.head,token,results=result2)
+    #     print('step2 申请提速:'+str(r))
+    #     speed_id=r['result']['speeed_id']
+    #     #step3 检查提速结果
+    #     result3 = {'msg':'成功','code':'0'}
+    #     c=check(self,speed_id,self.head,results=result3)
+    #     print('step3 检查提速结果：'+str(c))
+    #     #step4 撤销提速
+    #     result4 = {'result':{'Done': True,'speeed_id': speed_id}}
+    #     d=delete_speeding(self,speed_id,self.head,results=result4)
+    #     print('step4 撤销提速：'+str(d))
+    #     #step5 检查撤销提速结果
+    #     result5 = {'msg': '对不起，系统异常', 'code': '10000'}
+    #     c2 = check(self, speed_id, self.head, results=result5)
+    #     print('step5 检查撤销提速结果：'+str(c2))
 
     '''
         获取token失败测试用例
@@ -114,7 +114,7 @@ class test(unittest.TestCase):
     #     # step1 获取token,X-Up-Calling-Line-Id所在省份不支持
     #     result = {'error': {'code': '4003', 'message': 'Access Denied!'}}
     #     get_token(self, head, results=result)
-    #
+
     # def test_04_01_with_none_x_forwared_for(self):
     #     '''获取token，x-forwared-for不传'''
     #     del self.head_get_token['X-Forwarded-For']
@@ -167,6 +167,7 @@ class test(unittest.TestCase):
     #     '''获取token，X-IMSI-Id错误'''
     #     self.head_get_token['X-IMSI-Id'] = "abcdefg+@#$"
     #     head = self.head_get_token
+    #     print(head)
     #     # step1 获取token,X-IMSI-Id错误
     #     result = {'error': {'message': 'Access Denied!', 'code': '4003'}}
     #     get_token(self, head, results=result)
@@ -175,6 +176,7 @@ class test(unittest.TestCase):
     #     '''获取token，X-IMSI-Id格式错误（超过11位）'''
     #     self.head_get_token['X-IMSI-Id'] = "4601102175011115"
     #     head = self.head_get_token
+    #     print(head)
     #     # step1 获取token,X-IMSI-Id错误
     #     result = {'error': {'message': 'Access Denied!', 'code': '4003'}}
     #     get_token(self, head, results=result)
@@ -229,170 +231,170 @@ class test(unittest.TestCase):
         test_10：dst_info
     
     '''
-    # def test_08_01_with_deleted_token(self):
-    #     '''提速时，使用已撤速的token失效'''
-    #     # step1 获取token
-    #     token = get_token(self, self.head_get_token)['result']
-    #     print('step1 获取token：' + str(token))
-    #     # step2 申请提速
-    #     result2 = {'result': {'Done': 'True'}}
-    #     r = speeding(self, self.head, token, result2)
-    #     print('step2 申请提速:' + str(r))
-    #     speed_id = r['result']['speeed_id']
-    #     # step3 检查提速结果
-    #     result3 = {'msg': '成功', 'code': '0'}
-    #     c = check(self, speed_id, self.head, result3)
-    #     print('step3 检查提速结果：' + str(c))
-    #     # step4 撤销提速
-    #     result4 = {'result': {'Done': True, 'speeed_id': speed_id}}
-    #     d = delete_speeding(self, speed_id, self.head, result4)
-    #     print('step4 撤销提速：' + str(d))
-    #     # step5 检查撤销提速结果
-    #     result5 = {'msg': '对不起，系统异常', 'code': '10000'}
-    #     c2 = check(self, speed_id, self.head, result5)
-    #     print('step5 检查撤销提速结果：' + str(c2))
-    #     # step6 使用失效的token申请提速
-    #     result6 = {'code':6254,'message':'认证失败'}
-    #     r = speeding(self, self.head, token, result6)
-    #     print('step6 使用失效的token申请提速:' + str(r))
-    #
-    # def test_08_02_token_on_timeout(self):
-    #     '''提速时，token失效时间180s，当申请token后179s，申请提速，成功'''
-    #     # step1 获取token
-    #     token = get_token(self, self.head_get_token)['result']
-    #     print('step1 获取token：' + str(token))
-    #     #等待179s
-    #     sleep(179)
-    #     # step2 使用未失效的token申请提速
-    #     result2 = {'result': {'Done': 'True'}}
-    #     r = speeding(self, self.head, token, result2)
-    #     print('step2 使用濒临失效的token申请提速:' + str(r))
-    #
-    # def test_08_03_token_timeout(self):
-    #     '''提速时，使用已失效的token'''
-    #     # step1 获取token
-    #     token = get_token(self, self.head_get_token)['result']
-    #     print('step1 获取token：' + str(token))
-    #     #等待181s
-    #     sleep(181)
-    #     # step2 使用未失效的token申请提速
-    #     result2 = {'code':6254,'message':'认证失败'}
-    #     r = speeding(self, self.head, token, result2)
-    #     print('step2 使用失效的token申请提速:' + str(r))
-    #
-    # def test_08_04_token_wrong(self):
-    #     '''提速时，token错误'''
-    #     # step1 获取token
-    #     token = get_token(self, self.head_get_token)['result']
-    #     print('step1 获取token：' + str(token))
-    #     # step2 使用错误的token申请提速
-    #     wrong_token=token+'123'
-    #     result2 = {'code':6254,'message':'认证失败'}
-    #     r = speeding(self, self.head, wrong_token, result2)
-    #     print('step2 使用错误的token申请提速:' + str(r))
+    def test_08_01_with_deleted_token(self):
+        '''提速时，使用已撤速的token失效'''
+        # step1 获取token
+        token = get_token(self, self.head_get_token)['result']
+        print('step1 获取token：' + str(token))
+        # step2 申请提速
+        result2 = {'result': {'Done': 'True'}}
+        r = speeding(self, self.head, security_token=token, results=result2)
+        print('step2 申请提速:' + str(r))
+        speed_id = r['result']['speeed_id']
+        # step3 检查提速结果
+        result3 = {'msg': '成功', 'code': '0'}
+        c = check(self, speed_id, self.head, results=result3)
+        print('step3 检查提速结果：' + str(c))
+        # step4 撤销提速
+        result4 = {'result': {'Done': True, 'speeed_id': speed_id}}
+        d = delete_speeding(self, speed_id, self.head, results=result4)
+        print('step4 撤销提速：' + str(d))
+        # step5 检查撤销提速结果
+        result5 = {'msg': '对不起，系统异常', 'code': '10000'}
+        c2 = check(self, speed_id, self.head, results=result5)
+        print('step5 检查撤销提速结果：' + str(c2))
+        # step6 使用失效的token申请提速
+        result6 = {'code':6254,'message':'认证失败'}
+        r = speeding(self, self.head, token, results=result6)
+        print('step6 使用失效的token申请提速:' + str(r))
 
-    # def test_09_with_speed_id_timeout(self):
-    #     '''提速后，等待speed_id失效后，使用失效speed_id'''
-    #     # step1 获取token
-    #     token = get_token(self, self.head_get_token)['result']
-    #     print('step1 获取token：' + str(token))
-    #     # step2 申请提速
-    #     result2 = {'result': {'Done': 'True'}}
-    #     r = speeding(self, self.head, token, result2)
-    #     print('step2 申请提速:' + str(r))
-    #     speed_id = r['result']['speeed_id']
-    #     # step3 检查提速结果
-    #     result3 = {'msg': '成功', 'code': '0'}
-    #     c = check(self, speed_id,self.head, result3)
-    #     print('step3 检查提速结果：' + str(c))
-    #     # step4,等待提速时长结束，提速时长默认3分钟，每10s轮巡一次
-    #     sleep(190)
-    #     print('step4 等待提速时长结束')
-    #     # step5 检查撤销提速结果
-    #     result5 = {'msg': '对不起，系统异常', 'code': '10000'}
-    #     c2 = check(self, speed_id,self.head, result5)
-    #     print('step5 检查撤销提速结果：' + str(c2))
-    #
-    # def  test_10_01_dst_info_illegal(self):
-    #     '''sp发起，访问提速平台,dst_info格式非法,dst_info='123123',创建提速通道失败'''
-    #     # step1 获取token
-    #     token = get_token(self, self.head_get_token)['result']
-    #     print('step1 获取token：' + str(token))
-    #     dst_info='123123'
-    #     # step2 申请提速
-    #     result2 ={'code':6253,'message':'参数不合法'}
-    #     r = speeding(self, self.head, token,dst_info=dst_info,results=result2)
-    #     print('step2 dst_info参数非法，创建提速失败:' + str(r))
-    #
-    # def  test_10_02_dst_info_illegal(self):
-    #     '''sp发起，访问提速平台,dst_info格式非法,dst_info='10.1.1.335:155'创建提速通道失败'''
-    #     # step1 获取token
-    #     token = get_token(self, self.head_get_token)['result']
-    #     print('step1 获取token：' + str(token))
-    #     dst_info='10.1.1.335:155'
-    #     # step2 申请提速
-    #     result2 ={'code':6253,'message':'参数不合法'}
-    #     r = speeding(self, self.head, token,dst_info=dst_info,results=result2)
-    #     print('step2 dst_info参数非法，创建提速失败:' + str(r))
-    #
-    # def  test_10_03_dst_info_illegal(self):
-    #     '''sp发起，访问提速平台,dst_info格式非法,dst_info='10.1.1.5:'创建提速通道失败'''
-    #     # step1 获取token
-    #     token = get_token(self, self.head_get_token)['result']
-    #     print('step1 获取token：' + str(token))
-    #     dst_info='10.1.1.5:'
-    #     # step2 申请提速
-    #     result2 ={'code':6253,'message':'参数不合法'}
-    #     r = speeding(self, self.head, token,dst_info=dst_info,results=result2)
-    #     print('step2 dst_info参数非法，创建提速失败:' + str(r))
-    #
-    # def  test_10_04_dst_info_illegal(self):
-    #     '''sp发起，访问提速平台,dst_info格式非法,dst_info='10.1.1:155'创建提速通道失败'''
-    #     '''sp发起，访问提速平台,dst_info格式非法,dst_info='10.1.1:155'创建提速通道失败'''
-    #     # step1 获取token
-    #     token = get_token(self, self.head_get_token)['result']
-    #     print('step1 获取token：' + str(token))
-    #     dst_info = '10.1.1:155'
-    #     # step2 申请提速
-    #     result2 = {'code': 6253, 'message': '参数不合法'}
-    #     r = speeding(self, self.head, token, dst_info=dst_info, results=result2)
-    #     print('step2 dst_info参数非法，创建提速失败:' + str(r))
-    #
-    # def  test_10_05_dst_info_illegal(self):
-    #     '''sp发起，访问提速平台,dst_info格式非法,dst_info='60.174.237.91:0'创建提速通道失败'''
-    #     '''sp发起，访问提速平台,dst_info格式非法,dst_info='60.174.237.91:0'创建提速通道失败'''
-    #     # step1 获取token
-    #     token = get_token(self, self.head_get_token)['result']
-    #     print('step1 获取token：' + str(token))
-    #     dst_info = '60.174.237.91:0'
-    #     # step2 申请提速
-    #     result2 = {'code': 6253, 'message': '参数不合法'}
-    #     r = speeding(self, self.head, token, dst_info=dst_info, results=result2)
-    #     print('step2 dst_info参数非法，创建提速失败:' + str(r))
-    #
-    # def  test_10_06_dst_info_illegal(self):
-    #     '''sp发起，访问提速平台,dst_info格式非法,dst_info='60.174.237.91:65536'创建提速通道失败'''
-    #     '''sp发起，访问提速平台,dst_info格式非法,dst_info='60.174.237.91:65536'创建提速通道失败'''
-    #     # step1 获取token
-    #     token = get_token(self, self.head_get_token)['result']
-    #     print('step1 获取token：' + str(token))
-    #     dst_info = '60.174.237.91:65536'
-    #     # step2 申请提速
-    #     result2 = {'code': 6253, 'message': '参数不合法'}
-    #     r = speeding(self, self.head, token, dst_info=dst_info, results=result2)
-    #     print('step2 dst_info参数非法，创建提速失败:' + str(r))
-    #
-    # def  test_10_07_dst_info_illegal(self):
-    #     '''sp发起，访问提速平台,dst_info格式非法,dst_info='60.174.237.91:abc'创建提速通道失败'''
-    #     '''sp发起，访问提速平台,dst_info格式非法,dst_info='60.174.237.91:abc'创建提速通道失败'''
-    #     # step1 获取token
-    #     token = get_token(self, self.head_get_token)['result']
-    #     print('step1 获取token：' + str(token))
-    #     dst_info = '60.174.237.91:abc'
-    #     # step2 申请提速
-    #     result2 = {'code': 6253, 'message': '参数不合法'}
-    #     r = speeding(self, self.head, token, dst_info=dst_info, results=result2)
-    #     print('step2 dst_info参数非法，创建提速失败:' + str(r))
+    def test_08_02_token_on_timeout(self):
+        '''提速时，token失效时间180s，当申请token后179s，申请提速，成功'''
+        # step1 获取token
+        token = get_token(self, self.head_get_token)['result']
+        print('step1 获取token：' + str(token))
+        #等待179s
+        sleep(179)
+        # step2 使用未失效的token申请提速
+        result2 = {'result': {'Done': 'True'}}
+        r = speeding(self, self.head, token, results=result2)
+        print('step2 使用濒临失效的token申请提速:' + str(r))
+
+    def test_08_03_token_timeout(self):
+        '''提速时，使用已失效的token'''
+        # step1 获取token
+        token = get_token(self, self.head_get_token)['result']
+        print('step1 获取token：' + str(token))
+        #等待181s
+        sleep(181)
+        # step2 使用未失效的token申请提速
+        result2 = {'code':6254,'message':'认证失败'}
+        r = speeding(self, self.head, token, results=result2)
+        print('step2 使用失效的token申请提速:' + str(r))
+
+    def test_08_04_token_wrong(self):
+        '''提速时，token错误'''
+        # step1 获取token
+        token = get_token(self, self.head_get_token)['result']
+        print('step1 获取token：' + str(token))
+        # step2 使用错误的token申请提速
+        wrong_token=token+'123'
+        result2 = {'code':6254,'message':'认证失败'}
+        r = speeding(self, self.head, wrong_token, results=result2)
+        print('step2 使用错误的token申请提速:' + str(r))
+
+    def test_09_with_speed_id_timeout(self):
+        '''提速后，等待speed_id失效后，使用失效speed_id'''
+        # step1 获取token
+        token = get_token(self, self.head_get_token)['result']
+        print('step1 获取token：' + str(token))
+        # step2 申请提速
+        result2 = {'result': {'Done': 'True'}}
+        r = speeding(self, self.head, token, results=result2)
+        print('step2 申请提速:' + str(r))
+        speed_id = r['result']['speeed_id']
+        # step3 检查提速结果
+        result3 = {'msg': '成功', 'code': '0'}
+        c = check(self, speed_id,self.head, results=result3)
+        print('step3 检查提速结果：' + str(c))
+        # step4,等待提速时长结束，提速时长默认3分钟，每10s轮巡一次
+        sleep(190)
+        print('step4 等待提速时长结束')
+        # step5 检查撤销提速结果
+        result5 = {'msg': '对不起，系统异常', 'code': '10000'}
+        c2 = check(self, speed_id,self.head, results=result5)
+        print('step5 检查撤销提速结果：' + str(c2))
+
+    def  test_10_01_dst_info_illegal(self):
+        '''sp发起，访问提速平台,dst_info格式非法,dst_info='123123',创建提速通道失败'''
+        # step1 获取token
+        token = get_token(self, self.head_get_token)['result']
+        print('step1 获取token：' + str(token))
+        dst_info='123123'
+        # step2 申请提速
+        result2 ={'code':6253,'message':'参数不合法'}
+        r = speeding(self, self.head, token,dst_info=dst_info,results=result2)
+        print('step2 dst_info参数非法，创建提速失败:' + str(r))
+
+    def  test_10_02_dst_info_illegal(self):
+        '''sp发起，访问提速平台,dst_info格式非法,dst_info='10.1.1.335:155'创建提速通道失败'''
+        # step1 获取token
+        token = get_token(self, self.head_get_token)['result']
+        print('step1 获取token：' + str(token))
+        dst_info='10.1.1.335:155'
+        # step2 申请提速
+        result2 ={'code':6253,'message':'参数不合法'}
+        r = speeding(self, self.head, token,dst_info=dst_info,results=result2)
+        print('step2 dst_info参数非法，创建提速失败:' + str(r))
+
+    def  test_10_03_dst_info_illegal(self):
+        '''sp发起，访问提速平台,dst_info格式非法,dst_info='10.1.1.5:'创建提速通道失败'''
+        # step1 获取token
+        token = get_token(self, self.head_get_token)['result']
+        print('step1 获取token：' + str(token))
+        dst_info='10.1.1.5:'
+        # step2 申请提速
+        result2 ={'code':6253,'message':'参数不合法'}
+        r = speeding(self, self.head, token,dst_info=dst_info,results=result2)
+        print('step2 dst_info参数非法，创建提速失败:' + str(r))
+
+    def  test_10_04_dst_info_illegal(self):
+        '''sp发起，访问提速平台,dst_info格式非法,dst_info='10.1.1:155'创建提速通道失败'''
+        '''sp发起，访问提速平台,dst_info格式非法,dst_info='10.1.1:155'创建提速通道失败'''
+        # step1 获取token
+        token = get_token(self, self.head_get_token)['result']
+        print('step1 获取token：' + str(token))
+        dst_info = '10.1.1:155'
+        # step2 申请提速
+        result2 = {'code': 6253, 'message': '参数不合法'}
+        r = speeding(self, self.head, token, dst_info=dst_info, results=result2)
+        print('step2 dst_info参数非法，创建提速失败:' + str(r))
+
+    def  test_10_05_dst_info_illegal(self):
+        '''sp发起，访问提速平台,dst_info格式非法,dst_info='60.174.237.91:0'创建提速通道失败'''
+        '''sp发起，访问提速平台,dst_info格式非法,dst_info='60.174.237.91:0'创建提速通道失败'''
+        # step1 获取token
+        token = get_token(self, self.head_get_token)['result']
+        print('step1 获取token：' + str(token))
+        dst_info = '60.174.237.91:0'
+        # step2 申请提速
+        result2 = {'code': 6253, 'message': '参数不合法'}
+        r = speeding(self, self.head, token, dst_info=dst_info, results=result2)
+        print('step2 dst_info参数非法，创建提速失败:' + str(r))
+
+    def  test_10_06_dst_info_illegal(self):
+        '''sp发起，访问提速平台,dst_info格式非法,dst_info='60.174.237.91:65536'创建提速通道失败'''
+        '''sp发起，访问提速平台,dst_info格式非法,dst_info='60.174.237.91:65536'创建提速通道失败'''
+        # step1 获取token
+        token = get_token(self, self.head_get_token)['result']
+        print('step1 获取token：' + str(token))
+        dst_info = '60.174.237.91:65536'
+        # step2 申请提速
+        result2 = {'code': 6253, 'message': '参数不合法'}
+        r = speeding(self, self.head, token, dst_info=dst_info, results=result2)
+        print('step2 dst_info参数非法，创建提速失败:' + str(r))
+
+    def  test_10_07_dst_info_illegal(self):
+        '''sp发起，访问提速平台,dst_info格式非法,dst_info='60.174.237.91:abc'创建提速通道失败'''
+        '''sp发起，访问提速平台,dst_info格式非法,dst_info='60.174.237.91:abc'创建提速通道失败'''
+        # step1 获取token
+        token = get_token(self, self.head_get_token)['result']
+        print('step1 获取token：' + str(token))
+        dst_info = '60.174.237.91:abc'
+        # step2 申请提速
+        result2 = {'code': 6253, 'message': '参数不合法'}
+        r = speeding(self, self.head, token, dst_info=dst_info, results=result2)
+        print('step2 dst_info参数非法，创建提速失败:' + str(r))
 
 
     '''
