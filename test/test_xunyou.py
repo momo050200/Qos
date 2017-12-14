@@ -8,8 +8,8 @@ from IniReader import IniReader
 
 class test(unittest.TestCase):
     def setUp(self):
-        self.file_path = '..\common\cfginfo.ini'
-        self.head_get_token = IniReader(self.file_path).get_dict('head_get_token')
+        self.file_path = '..\common\cfginfo1.ini'
+        self.head_get_token = IniReader(self.file_path).get_dict('head_get_token2')
         self.X_Application_id = self.head_get_token['X-Application-Id']
         self.date, self.X_Application_Auth = MD5(self.X_Application_id)
         self.x_up_calling_line_id=self.head_get_token['X-Up-Calling-Line-Id']
@@ -31,6 +31,7 @@ class test(unittest.TestCase):
     def test_01_successful(self):
         '''成功流程：获取token，申请提速，检查提速，撤销提速，检查提速'''
         #step1 获取token
+        del self.head_get_token['X-Application-Id']
         token=get_token(self,self.head_get_token)['result']
         print('step1 获取token：'+str(token))
         #step2 申请提速
