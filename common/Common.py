@@ -51,8 +51,7 @@ def speeding_tencent(self, head, security_token, results=None, dst_info_ip=None,
     if dst_info_ip != None:
         body["ResourceFeatureProperties"][0]["FlowProperties"][0]["DestinationIpAdress"] = dst_info_ip
     if dst_port != None:
-        body["ResourceFeatureProperties"][0]["FlowProperties"][0]["DestinationPort"] = int(dst_port)
-    print(body)
+        body["ResourceFeatureProperties"][0]["FlowProperties"][0]["DestinationPort"] = dst_port
     body = json.dumps(body)
     result = C.post(self, url, data=body, headers=head, results=results)
     return result
