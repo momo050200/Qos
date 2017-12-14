@@ -51,6 +51,7 @@ class test(unittest.TestCase):
         c2 = check(self, speed_id, self.head, results=result5)
         print('step5 检查撤销提速结果：'+str(c2))
 
+
     '''
         获取token失败测试用例
         
