@@ -49,9 +49,9 @@ def speeding_tencent(self, head, security_token, results=None, dst_info_ip=None,
     body = eval(IniReader(file_path).get_value('speeding_tencent_body', 'body'))
     body["security_token"] = security_token
     if dst_info_ip != None:
-        body["ResourceFeatureProperties"]["FlowProperties"]["DestinationIpAdress"] = dst_info_ip
+        body["ResourceFeatureProperties"][0]["FlowProperties"][0]["DestinationIpAdress"] = dst_info_ip
     if dst_port != None:
-        body["ResourceFeatureProperties"]["FlowProperties"]["SourcePort"] = dst_port
+        body["ResourceFeatureProperties"][0]["FlowProperties"][0]["DestinationPort"] = dst_port
     body = json.dumps(body)
     result = C.post(self, url, data=body, headers=head, results=results)
     return result
