@@ -28,28 +28,28 @@ class test(unittest.TestCase):
         正常流程测试用例
         test_01：成功流程
     '''
-    def test_01_successful(self):
-        '''成功流程：获取token，申请提速，检查提速，撤销提速，检查提速'''
-        #step1 获取token
-        token=get_token(self,self.head_get_token)['result']
-        print('step1 获取token：'+str(token))
-        #step2 申请提速
-        result2 = {'result': {'Done': 'True'}}
-        r=speeding(self,self.head,token,results=result2)
-        print('step2 申请提速:'+str(r))
-        speed_id=r['result']['speeed_id']
-        #step3 检查提速结果
-        result3 = {'msg':'成功','code':'0'}
-        c=check(self,speed_id,self.head,results=result3)
-        print('step3 检查提速结果：'+str(c))
-        #step4 撤销提速
-        result4 = {'result':{'Done': True,'speeed_id': speed_id}}
-        d=delete_speeding(self,speed_id,self.head,results=result4)
-        print('step4 撤销提速：'+str(d))
-        #step5 检查撤销提速结果
-        result5 = {'msg': '对不起，系统异常', 'code': '10000'}
-        c2 = check(self, speed_id, self.head, results=result5)
-        print('step5 检查撤销提速结果：'+str(c2))
+    # def test_01_successful(self):
+    #     '''成功流程：获取token，申请提速，检查提速，撤销提速，检查提速'''
+    #     #step1 获取token
+    #     token=get_token(self,self.head_get_token)['result']
+    #     print('step1 获取token：'+str(token))
+    #     #step2 申请提速
+    #     result2 = {'result': {'Done': 'True'}}
+    #     r=speeding(self,self.head,token,results=result2)
+    #     print('step2 申请提速:'+str(r))
+    #     speed_id=r['result']['speeed_id']
+    #     #step3 检查提速结果
+    #     result3 = {'msg':'成功','code':'0'}
+    #     c=check(self,speed_id,self.head,results=result3)
+    #     print('step3 检查提速结果：'+str(c))
+    #     #step4 撤销提速
+    #     result4 = {'result':{'Done': True,'speeed_id': speed_id}}
+    #     d=delete_speeding(self,speed_id,self.head,results=result4)
+    #     print('step4 撤销提速：'+str(d))
+    #     #step5 检查撤销提速结果
+    #     result5 = {'msg': '对不起，系统异常', 'code': '10000'}
+    #     c2 = check(self, speed_id, self.head, results=result5)
+    #     print('step5 检查撤销提速结果：'+str(c2))
 
 
     '''
@@ -107,14 +107,23 @@ class test(unittest.TestCase):
     #     # step1 获取token,X-Up-Calling-Line-Id格式错误
     #     result = {'error': {'code': '4003', 'message': 'Access Denied!'}}
     #     get_token(self, head,results=result)
-    #
-    # def test_03_04_with_not_support_x_up_calling_line_id(self):
-    #     '''获取token，X-Up-Calling-Line-Id所在省份不支持'''
-    #     self.head_get_token['X-Up-Calling-Line-Id'] = "13951009260"
-    #     head = self.head_get_token
-    #     # step1 获取token,X-Up-Calling-Line-Id所在省份不支持
-    #     result = {'error': {'code': '4003', 'message': 'Access Denied!'}}
-    #     get_token(self, head, results=result)
+
+    def test_03_04_with_not_support_x_up_calling_line_id(self):
+        '''获取token，X-Up-Calling-Line-Id所在省份不支持'''
+        self.head_get_token['X-Up-Calling-Line-Id'] = "13357131223"
+        head = self.head_get_token
+        # step1 获取token,X-Up-Calling-Line-Id所在省份不支持
+        result = {'error': {'code': '4003', 'message': 'Access Denied!'}}
+        # get_token(self, head, results=result)
+        print(get_token(self, head, ))
+
+    def test_03_05_with_not_support_x_up_calling_line_id(self):
+        '''获取token，X-Up-Calling-Line-Id格式错误'''
+        self.head_get_token['X-Up-Calling-Line-Id'] = "17397952473a"
+        head = self.head_get_token
+        # step1 获取token,X-Up-Calling-Line-Id格式错误
+        result = {'error': {'code': '4003', 'message': 'Access Denied!'}}
+        get_token(self, head, results=result)
 
     # def test_04_01_with_none_x_forwared_for(self):
     #     '''获取token，x-forwared-for不传'''
@@ -155,7 +164,7 @@ class test(unittest.TestCase):
     #     # step1 获取token,X-IMSI-Id不传
     #     result = {'error': {'code': '4003', 'message': 'Access Denied!'}}
     #     get_token(self, head, results=result)
-    #
+
     # def test_05_02_with_null_X_IMSI_Id(self):
     #     '''获取token，X-IMSI-Id为空'''
     #     self.head_get_token['X-IMSI-Id']=''
@@ -163,7 +172,8 @@ class test(unittest.TestCase):
     #     # step1 获取token,X-IMSI-Id为空
     #     result = {'error': {'message': 'Access Denied!', 'code': '4003'}}
     #     get_token(self, head, results=result)
-    #
+    #     # print(get_token(self, head, ))
+
     # def test_05_03_with_wrong_X_IMSI_Id(self):
     #     '''获取token，X-IMSI-Id错误'''
     #     self.head_get_token['X-IMSI-Id'] = "abcdefg+@#$"
@@ -192,7 +202,7 @@ class test(unittest.TestCase):
     #     head = self.head_get_token
     #     result = {"code":"50000"}
     #     get_token(self,head,results=result)
-    #
+
     # def test_06_02_with_wrong_X_Application_Id(self):
     #     '''获取token时传入：X-Application-Id非法'''
     #     X_Application_id = 'abc#2323434'
@@ -282,7 +292,7 @@ class test(unittest.TestCase):
     #     result2 = {'code':6254,'message':'认证失败'}
     #     r = speeding(self, self.head, token, results=result2)
     #     print('step2 使用失效的token申请提速:' + str(r))
-    #
+
     # def test_08_04_token_wrong(self):
     #     '''提速时，token错误'''
     #     # step1 获取token
@@ -293,7 +303,7 @@ class test(unittest.TestCase):
     #     result2 = {'code':6254,'message':'认证失败'}
     #     r = speeding(self, self.head, wrong_token, results=result2)
     #     print('step2 使用错误的token申请提速:' + str(r))
-    #
+
     # def test_09_with_speed_id_timeout(self):
     #     '''提速后，等待speed_id失效后，使用失效speed_id'''
     #     # step1 获取token
@@ -315,7 +325,7 @@ class test(unittest.TestCase):
     #     result5 = {'msg': '对不起，系统异常', 'code': '10000'}
     #     c2 = check(self, speed_id,self.head, results=result5)
     #     print('step5 检查撤销提速结果：' + str(c2))
-    #
+
     # def  test_10_01_dst_info_illegal(self):
     #     '''sp发起，访问提速平台,dst_info格式非法,dst_info='123123',创建提速通道失败'''
     #     # step1 获取token

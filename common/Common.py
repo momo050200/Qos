@@ -31,6 +31,12 @@ def check(self, speed_id, head, results=None):
     result = C.get(self, url, headers=head, results=results)
     return result
 
+def check_tencent(self, speed_id, head, results=None):
+    check = IniReader(file_path).get_value('url', 'check_tencent')
+    url = base_url + check + speed_id
+    result = C.get(self, url, headers=head, results=results)
+    return result
+
 
 def speeding(self, head, security_token, dst_info=None, results=None):
     speeding_xunyou = IniReader(file_path).get_value('url', 'speeding_xunyou')
@@ -43,15 +49,26 @@ def speeding(self, head, security_token, dst_info=None, results=None):
     return result
 
 
-def speeding_tencent(self, head, security_token, results=None, dst_info_ip=None, dst_port=None):
+# def speeding_tencent(self, head, security_token, results=None, dst_info_ip=None, dst_port=None):
+#     speeding_tencent = IniReader(file_path).get_value('url', 'speeding_tencent')
+#     url = base_url + speeding_tencent
+#     body = eval(IniReader(file_path).get_value('speeding_tencent_body', 'body'))
+#     body["security_token"] = security_token
+#     if dst_info_ip != None:
+#         body["ResourceFeatureProperties"][0]["FlowProperties"][0]["DestinationIpAdress"] = dst_info_ip
+#     if dst_port != None:
+#         body["ResourceFeatureProperties"][0]["FlowProperties"][0]["DestinationPort"] = dst_port
+#     body = json.dumps(body)
+#     result = C.post(self, url, data=body, headers=head, results=results)
+#     return result
+
+def speeding_tencent(self, head, security_token, results=None, dst_info_ip=None, ):
     speeding_tencent = IniReader(file_path).get_value('url', 'speeding_tencent')
     url = base_url + speeding_tencent
     body = eval(IniReader(file_path).get_value('speeding_tencent_body', 'body'))
     body["security_token"] = security_token
     if dst_info_ip != None:
         body["ResourceFeatureProperties"][0]["FlowProperties"][0]["DestinationIpAdress"] = dst_info_ip
-    if dst_port != None:
-        body["ResourceFeatureProperties"][0]["FlowProperties"][0]["DestinationPort"] = dst_port
     body = json.dumps(body)
     result = C.post(self, url, data=body, headers=head, results=results)
     return result
@@ -60,6 +77,13 @@ def speeding_tencent(self, head, security_token, results=None, dst_info_ip=None,
 def delete_speeding(self, speed_id, head, req_id=None,results=None):
     if req_id == None:
         req_id = IniReader(file_path).get_value('url', 'delete_speeding')
+    url = base_url + req_id + speed_id
+    result = C.delete(self, url, headers=head, results=results)
+    return result
+
+def delete_speeding_tencent(self, speed_id, head, req_id=None,results=None):
+    if req_id == None:
+        req_id = IniReader(file_path).get_value('url', 'delete_speeding_tencent')
     url = base_url + req_id + speed_id
     result = C.delete(self, url, headers=head, results=results)
     return result
