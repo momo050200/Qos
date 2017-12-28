@@ -131,7 +131,7 @@ class test_tencent(unittest.TestCase):
     #     print('step2 使用错误的token申请提速:' + str(r))
     #
     # def  test_07_dst_info_illegal_1(self):
-    #     '''sp发起，访问提速平台,参数非法DestinationIpAdress='123123',创建提速通道失败'''    #
+    #     '''sp发起，访问提速平台,参数非法DestinationIpAdress='123123',创建提速通道失败'''
     #     # step1 获取token
     #     token = get_token(self, self.head_get_token)['result']
     #     print('step1 获取token：' + str(token))
