@@ -73,73 +73,73 @@ class test_tencent(unittest.TestCase):
         r = speeding(self, self.head, token, results=result6)
         print('step6 使用失效的token申请提速:' + str(r))
 
-    # def test_03_with_speed_id_timeout(self):
-    #     '''提速后，等待speed_id失效后，使用失效speed_id'''
-    #     # step1 获取token
-    #     token = get_token(self, self.head_get_token)['result']
-    #     print('step1 获取token：' + str(token))
-    #     # step2 申请提速
-    #     result2 = {'ResultMessage': 'Successful', 'ResultCode': 0}
-    #     r = speeding_tencent(self, self.head, token,results=result2)
-    #     print('step2 申请提速:' + str(r))
-    #     speed_id = r['CorrelationId']
-    #     # step3 检查提速结果
-    #     result3 = {'msg': '成功', 'code': '0'}
-    #     c = check_tencent(self, speed_id,self.head, results=result3)
-    #     print('step3 检查提速结果：' + str(c))
-    #     # step4,等待提速时长结束，提速时长默认3分钟，每10s轮巡一次
-    #     sleep(190)
-    #     print('step4 等待提速时长结束')
-    #     # step5 检查撤销提速结果
-    #     result5 = {'msg': '对不起，系统异常', 'code': '10000'}
-    #     c2 = check_tencent(self, speed_id,self.head, results=result5)
-    #     print('step5 检查撤销提速结果：' + str(c2))
-    #
-    # def test_04_token_on_timeout(self):
-    #     '''提速时，token失效时间180s，当申请token后179s，申请提速，成功'''
-    #     # step1 获取token
-    #     token = get_token(self, self.head_get_token)['result']
-    #     print('step1 获取token：' + str(token))
-    #     #等待179s
-    #     sleep(179)
-    #     # step2 使用未失效的token申请提速
-    #     result2 = {'ResultMessage': 'Successful', 'ResultCode': 0}
-    #     r = speeding_tencent(self, self.head, token,results=result2)
-    #     print('step2 使用濒临失效的token申请提速:' + str(r))
-    #
-    # def test_05_token_timeout(self):
-    #     '''提速时，使用已失效的token'''
-    #     # step1 获取token
-    #     token = get_token(self, self.head_get_token)['result']
-    #     print('step1 获取token：' + str(token))
-    #     #等待181s
-    #     sleep(181)
-    #     # step2 使用未失效的token申请提速
-    #     result2 = {"ResultCode":254,"ResultMessage":"Auth Failed"}
-    #     r = speeding_tencent(self, self.head, token, results=result2)
-    #     print('step2 使用失效的token申请提速:' + str(r))
-    #
-    # def test_06_token_wrong(self):
-    #     '''提速时，token错误'''
-    #     # step1 获取token
-    #     token = get_token(self, self.head_get_token)['result']
-    #     print('step1 获取token：' + str(token))
-    #     # step2 使用错误的token申请提速
-    #     wrong_token=token+'123'
-    #     result2 = {"ResultCode":254,"ResultMessage":"Auth Failed"}
-    #     r = speeding_tencent(self, self.head, wrong_token,results=result2)
-    #     print('step2 使用错误的token申请提速:' + str(r))
-    #
-    # def  test_07_dst_info_illegal_1(self):
-    #     '''sp发起，访问提速平台,参数非法DestinationIpAdress='123123',创建提速通道失败'''
-    #     # step1 获取token
-    #     token = get_token(self, self.head_get_token)['result']
-    #     print('step1 获取token：' + str(token))
-    #     dst_info="123123"
-    #     # step2 申请提速
-    #     result2 ={"ResultCode":129,"ResultMessage":"Invalid service information"}
-    #     r = speeding_tencent(self, self.head, token,dst_info_ip=dst_info,results=result2)
-    #     print('step2 DestinationIpAdress="123123"，创建提速失败:' + str(r))
+    def test_03_with_speed_id_timeout(self):
+        '''提速后，等待speed_id失效后，使用失效speed_id'''
+        # step1 获取token
+        token = get_token(self, self.head_get_token)['result']
+        print('step1 获取token：' + str(token))
+        # step2 申请提速
+        result2 = {'ResultMessage': 'Successful', 'ResultCode': 0}
+        r = speeding_tencent(self, self.head, token,results=result2)
+        print('step2 申请提速:' + str(r))
+        speed_id = r['CorrelationId']
+        # step3 检查提速结果
+        result3 = {'msg': '成功', 'code': '0'}
+        c = check_tencent(self, speed_id,self.head, results=result3)
+        print('step3 检查提速结果：' + str(c))
+        # step4,等待提速时长结束，提速时长默认3分钟，每10s轮巡一次
+        sleep(190)
+        print('step4 等待提速时长结束')
+        # step5 检查撤销提速结果
+        result5 = {'msg': '对不起，系统异常', 'code': '10000'}
+        c2 = check_tencent(self, speed_id,self.head, results=result5)
+        print('step5 检查撤销提速结果：' + str(c2))
+
+    def test_04_token_on_timeout(self):
+        '''提速时，token失效时间180s，当申请token后179s，申请提速，成功'''
+        # step1 获取token
+        token = get_token(self, self.head_get_token)['result']
+        print('step1 获取token：' + str(token))
+        #等待179s
+        sleep(179)
+        # step2 使用未失效的token申请提速
+        result2 = {'ResultMessage': 'Successful', 'ResultCode': 0}
+        r = speeding_tencent(self, self.head, token,results=result2)
+        print('step2 使用濒临失效的token申请提速:' + str(r))
+
+    def test_05_token_timeout(self):
+        '''提速时，使用已失效的token'''
+        # step1 获取token
+        token = get_token(self, self.head_get_token)['result']
+        print('step1 获取token：' + str(token))
+        #等待181s
+        sleep(181)
+        # step2 使用未失效的token申请提速
+        result2 = {"ResultCode":254,"ResultMessage":"Auth Failed"}
+        r = speeding_tencent(self, self.head, token, results=result2)
+        print('step2 使用失效的token申请提速:' + str(r))
+
+    def test_06_token_wrong(self):
+        '''提速时，token错误'''
+        # step1 获取token
+        token = get_token(self, self.head_get_token)['result']
+        print('step1 获取token：' + str(token))
+        # step2 使用错误的token申请提速
+        wrong_token=token+'123'
+        result2 = {"ResultCode":254,"ResultMessage":"Auth Failed"}
+        r = speeding_tencent(self, self.head, wrong_token,results=result2)
+        print('step2 使用错误的token申请提速:' + str(r))
+
+    def  test_07_dst_info_illegal_1(self):
+        '''sp发起，访问提速平台,参数非法DestinationIpAdress='123123',创建提速通道失败'''
+        # step1 获取token
+        token = get_token(self, self.head_get_token)['result']
+        print('step1 获取token：' + str(token))
+        dst_info="123123"
+        # step2 申请提速
+        result2 ={"ResultCode":129,"ResultMessage":"Invalid service information"}
+        r = speeding_tencent(self, self.head, token,dst_info_ip=dst_info,results=result2)
+        print('step2 DestinationIpAdress="123123"，创建提速失败:' + str(r))
 
     # def  test_07_dst_info_illegal_2(self):
     #     '''sp发起，访问提速平台,参数SourcePort='abcd',创建提速通道失败'''
@@ -151,30 +151,30 @@ class test_tencent(unittest.TestCase):
     #     result2 ={"ResultCode":129,"ResultMessage":"Invalid service information"}
     #     r = speeding_tencent(self, self.head, token,dst_port=dst_port,results=result2)
     #     print('step2 SourcePort="abcd"，提速失败:' + str(r))
-    #
-    #
-    # def  test_07_dst_info_illegal_3(self):
-    #     '''sp发起，访问提速平台,参数DestinationIpAdress='10.23.226.',创建提速通道失败'''
-    #     # step1 获取token
-    #     token = get_token(self,self.head_get_token)['result']
-    #     print('step1 获取token：' + str(token))
-    #     dst_info = '10.23.226.'
-    #     # step2 申请提速
-    #     result2 ={"ResultCode":129,"ResultMessage":"Invalid service information"}
-    #     r = speeding_tencent(self, self.head, token,dst_info_ip=dst_info,results=result2)
-    #     print('step2 DestinationIpAdress="10.23.226."，创建提速失败:' + str(r))
-    #
-    # def  test_07_dst_info_illegal_4(self):
-    #     '''sp发起，访问提速平台,参数DestinationIpAdress='10.23.22.726.',创建提速通道失败'''
-    #     # step1 获取token
-    #     token = get_token(self,self.head_get_token)['result']
-    #     print('step1 获取token：' + str(token))
-    #     dst_info = '10.23.22.726'
-    #     # step2 申请提速
-    #     result2 ={"ResultCode":129,"ResultMessage":"Invalid service information"}
-    #     r = speeding_tencent(self, self.head, token,dst_info_ip=dst_info,results=result2)
-    #     print('step2 DestinationIpAdress="10.23.22.726"，创建提速失败:' + str(r))
-    #
+
+
+    def  test_07_dst_info_illegal_3(self):
+        '''sp发起，访问提速平台,参数DestinationIpAdress='10.23.226.',创建提速通道失败'''
+        # step1 获取token
+        token = get_token(self,self.head_get_token)['result']
+        print('step1 获取token：' + str(token))
+        dst_info = '10.23.226.'
+        # step2 申请提速
+        result2 ={"ResultCode":129,"ResultMessage":"Invalid service information"}
+        r = speeding_tencent(self, self.head, token,dst_info_ip=dst_info,results=result2)
+        print('step2 DestinationIpAdress="10.23.226."，创建提速失败:' + str(r))
+
+    def  test_07_dst_info_illegal_4(self):
+        '''sp发起，访问提速平台,参数DestinationIpAdress='10.23.22.726.',创建提速通道失败'''
+        # step1 获取token
+        token = get_token(self,self.head_get_token)['result']
+        print('step1 获取token：' + str(token))
+        dst_info = '10.23.22.726'
+        # step2 申请提速
+        result2 ={"ResultCode":129,"ResultMessage":"Invalid service information"}
+        r = speeding_tencent(self, self.head, token,dst_info_ip=dst_info,results=result2)
+        print('step2 DestinationIpAdress="10.23.22.726"，创建提速失败:' + str(r))
+
 
     # def  test_07_dst_info_illegal_5(self):
     #     '''sp发起，访问提速平台,参数SourcePort='0',创建提速通道失败'''
@@ -186,8 +186,8 @@ class test_tencent(unittest.TestCase):
     #     result2 ={"ResultCode":129,"ResultMessage":"Invalid service information"}
     #     r = speeding_tencent(self, self.head, token,dst_port=dst_port,results=result2)
     #     print('step2 DestinationPort="abcd"，提速失败:' + str(r))
-    #
-    #
+
+
     # def  test_07_dst_info_illegal_6(self):
     #     '''sp发起，访问提速平台,参数SourcePort='65536',创建提速通道失败'''
     #     # step1 获取token
