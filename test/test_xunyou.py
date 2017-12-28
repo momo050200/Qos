@@ -108,22 +108,22 @@ class test(unittest.TestCase):
     #     result = {'error': {'code': '4003', 'message': 'Access Denied!'}}
     #     get_token(self, head,results=result)
 
-    def test_03_04_with_not_support_x_up_calling_line_id(self):
-        '''获取token，X-Up-Calling-Line-Id所在省份不支持'''
-        self.head_get_token['X-Up-Calling-Line-Id'] = "13357131223"
-        head = self.head_get_token
-        # step1 获取token,X-Up-Calling-Line-Id所在省份不支持
-        result = {'error': {'code': '4003', 'message': 'Access Denied!'}}
-        # get_token(self, head, results=result)
-        print(get_token(self, head, ))
-
-    def test_03_05_with_not_support_x_up_calling_line_id(self):
-        '''获取token，X-Up-Calling-Line-Id格式错误'''
-        self.head_get_token['X-Up-Calling-Line-Id'] = "17397952473a"
-        head = self.head_get_token
-        # step1 获取token,X-Up-Calling-Line-Id格式错误
-        result = {'error': {'code': '4003', 'message': 'Access Denied!'}}
-        get_token(self, head, results=result)
+    # def test_03_04_with_not_support_x_up_calling_line_id(self):
+    #     '''获取token，X-Up-Calling-Line-Id所在省份不支持'''
+    #     self.head_get_token['X-Up-Calling-Line-Id'] = "13357131223"
+    #     head = self.head_get_token
+    #     # step1 获取token,X-Up-Calling-Line-Id所在省份不支持
+    #     result = {'error': {'code': '4003', 'message': 'Access Denied!'}}
+    #     # get_token(self, head, results=result)
+    #     print(get_token(self, head, ))
+    #
+    # def test_03_05_with_not_support_x_up_calling_line_id(self):
+    #     '''获取token，X-Up-Calling-Line-Id格式错误'''
+    #     self.head_get_token['X-Up-Calling-Line-Id'] = "17397952473a"
+    #     head = self.head_get_token
+    #     # step1 获取token,X-Up-Calling-Line-Id格式错误
+    #     result = {'error': {'code': '4003', 'message': 'Access Denied!'}}
+    #     get_token(self, head, results=result)
 
     # def test_04_01_with_none_x_forwared_for(self):
     #     '''获取token，x-forwared-for不传'''
@@ -348,19 +348,29 @@ class test(unittest.TestCase):
     #     r = speeding(self, self.head, token,dst_info=dst_info,results=result2)
     #     print('step2 dst_info参数非法，创建提速失败:' + str(r))
     #
-    # def  test_10_03_dst_info_illegal(self):
-    #     '''sp发起，访问提速平台,dst_info格式非法,dst_info='10.1.1.5:'创建提速通道失败'''
-    #     # step1 获取token
-    #     token = get_token(self, self.head_get_token)['result']
-    #     print('step1 获取token：' + str(token))
-    #     dst_info='10.1.1.5:'
-    #     # step2 申请提速
-    #     result2 ={'code':6253,'message':'参数不合法'}
-    #     r = speeding(self, self.head, token,dst_info=dst_info,results=result2)
-    #     print('step2 dst_info参数非法，创建提速失败:' + str(r))
+    def  test_10_03_dst_info_illegal(self):
+        '''sp发起，访问提速平台,dst_info格式非法,dst_info='10.1.1.5:'创建提速通道失败'''
+        # step1 获取token
+        token = get_token(self, self.head_get_token)['result']
+        print('step1 获取token：' + str(token))
+        dst_info='10.1.1.5:'
+        # step2 申请提速
+        result2 ={'code':6253,'message':'参数不合法'}
+        r = speeding(self, self.head, token,dst_info=dst_info,results=result2)
+        print('step2 dst_info参数非法，创建提速失败:' + str(r))
+
+    def  test_10_04_dst_info_with_no_port(self):
+        '''sp发起，访问提速平台,dst_info格式正确,dst_info='10.1.1.5'创建提速通道成功'''
+        # step1 获取token
+        token = get_token(self, self.head_get_token)['result']
+        print('step1 获取token：' + str(token))
+        dst_info='10.1.1.5'
+        # step2 申请提速
+        result2 ={'result': {'Done': 'True'}}
+        r = speeding(self, self.head, token,dst_info=dst_info,results=result2)
+        print('step2 dst_info参数正确，创建提速成功:' + str(r))
     #
-    # def  test_10_04_dst_info_illegal(self):
-    #     '''sp发起，访问提速平台,dst_info格式非法,dst_info='10.1.1:155'创建提速通道失败'''
+    # def  test_10_05_dst_info_illegal(self):
     #     '''sp发起，访问提速平台,dst_info格式非法,dst_info='10.1.1:155'创建提速通道失败'''
     #     # step1 获取token
     #     token = get_token(self, self.head_get_token)['result']
@@ -371,8 +381,7 @@ class test(unittest.TestCase):
     #     r = speeding(self, self.head, token, dst_info=dst_info, results=result2)
     #     print('step2 dst_info参数非法，创建提速失败:' + str(r))
     #
-    # def  test_10_05_dst_info_illegal(self):
-    #     '''sp发起，访问提速平台,dst_info格式非法,dst_info='60.174.237.91:0'创建提速通道失败'''
+    # def  test_10_06_dst_info_illegal(self):
     #     '''sp发起，访问提速平台,dst_info格式非法,dst_info='60.174.237.91:0'创建提速通道失败'''
     #     # step1 获取token
     #     token = get_token(self, self.head_get_token)['result']
@@ -383,8 +392,7 @@ class test(unittest.TestCase):
     #     r = speeding(self, self.head, token, dst_info=dst_info, results=result2)
     #     print('step2 dst_info参数非法，创建提速失败:' + str(r))
     #
-    # def  test_10_06_dst_info_illegal(self):
-    #     '''sp发起，访问提速平台,dst_info格式非法,dst_info='60.174.237.91:65536'创建提速通道失败'''
+    # def  test_10_07_dst_info_illegal(self):
     #     '''sp发起，访问提速平台,dst_info格式非法,dst_info='60.174.237.91:65536'创建提速通道失败'''
     #     # step1 获取token
     #     token = get_token(self, self.head_get_token)['result']
@@ -395,8 +403,7 @@ class test(unittest.TestCase):
     #     r = speeding(self, self.head, token, dst_info=dst_info, results=result2)
     #     print('step2 dst_info参数非法，创建提速失败:' + str(r))
     #
-    # def  test_10_07_dst_info_illegal(self):
-    #     '''sp发起，访问提速平台,dst_info格式非法,dst_info='60.174.237.91:abc'创建提速通道失败'''
+    # def  test_10_08_dst_info_illegal(self):
     #     '''sp发起，访问提速平台,dst_info格式非法,dst_info='60.174.237.91:abc'创建提速通道失败'''
     #     # step1 获取token
     #     token = get_token(self, self.head_get_token)['result']
@@ -441,20 +448,19 @@ class test(unittest.TestCase):
     #     '''库里面有3条链路情况下，删除全部链路并校验是否能够提速'''
     #     product_key = IniReader(self.file_path).get_value('remove_product', 'product_key')
     #     result_remove = {"code": "0", "msg": "成功"}
-    #     # 删除全部链路
+    #     # step1 删除全部链路
     #     print('step1' + "删除链路：")
     #     for i in range(len(product_key)):
     #         link_remove = remove_product(self, product_key[i], result_remove)
     #         print("删除链路" + product_key[i] + ":" + str(link_remove))
-    #     # MD5加密
-    #     # step3 获取token
+    #     # step2 获取token
     #     token = get_token(self, self.head_get_token)['result']
     #     print('step2 获取token：' + str(token))
-    #     # step4 申请提速
+    #     # step3 申请提速
     #     result2 = {'code': 6000, 'message': '暂时不能提速'}
     #     r = speeding(self, self.head, token, )
     #     print('step3 申请提速:' + str(r))
-    #     # 重新新增被删除的3条链路
+    #     # step4 重新新增被删除的3条链路
     #     print('step4 新增链路：')
     #     result_add = {'code': '0', 'msg': '成功'}
     #     for i in range(len(product_key)):
