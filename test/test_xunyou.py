@@ -8,7 +8,7 @@ from IniReader import IniReader
 
 class test(unittest.TestCase):
     def setUp(self):
-        self.file_path = '..\common\cfginfo.ini'
+        self.file_path = '.\common\cfginfo.ini'
         self.head_get_token = IniReader(self.file_path).get_dict('head_get_token')
         self.X_Application_id = self.head_get_token['X-Application-Id']
         self.date, self.X_Application_Auth = MD5(self.X_Application_id)
@@ -54,14 +54,14 @@ class test(unittest.TestCase):
 
     '''
         获取token失败测试用例
-        
+
         test_02：appid
         test_03：X-Up-Calling-Line-Id
         test_04：x-forwared-for
         test_05：x-imsi-id
         test_06：X_Application_Id
         test_07：X_Request_At
-        
+
     '''
     def test_02_01_with_none_app_id(self):
         '''获取token，app_id不传'''
@@ -236,11 +236,11 @@ class test(unittest.TestCase):
 
     '''
         加速失败测试用例
-        
+
         test_08：sercurity_token
         test_09：speed_id到期自动拆速成功
         test_10：dst_info
-    
+
     '''
     def test_08_01_with_deleted_token(self):
         '''提速时，使用已撤速的token失效'''
@@ -417,7 +417,7 @@ class test(unittest.TestCase):
 
     '''
         动态新增、删除测试用例
-        
+
     '''
 
     # def test_11_turing_success(self):
