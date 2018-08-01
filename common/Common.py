@@ -16,14 +16,13 @@ from IniReader import IniReader
 
 def get_token(self, head,req_id=None, results=None):
     global file_path, base_url
-    file_path = '..\common\cfginfo.ini'
+    file_path = '.\common\cfginfo.ini'
     base_url = IniReader(file_path).get_value('url', 'base_url')
     if req_id == None:
         req_id = IniReader(file_path).get_value('url', 'get_token')
     url = base_url + req_id
     result = C.get(self, url, data=None, headers=head, results=results)
     return result
-
 
 def check(self, speed_id, head, results=None):
     check = IniReader(file_path).get_value('url', 'check')

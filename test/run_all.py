@@ -5,7 +5,7 @@ from HTMLTestRunner import HTMLTestRunner
 import time
 
 if __name__ == '__main__':
-    suite = unittest.defaultTestLoader.discover('./test', pattern='test*.py')
+    suite = unittest.defaultTestLoader.discover('./', pattern='test*.py')
     now_time = time.strftime("%Y_%m_%d_%H_%M_%S")
     filename = './report/' + now_time + '_qos.html'
     fp = open(filename, 'wb')

@@ -7,7 +7,7 @@ from time import sleep
 
 class test_tencent(unittest.TestCase):
     def setUp(self):
-        self.file_path = '..\common\cfginfo.ini'
+        self.file_path = '.\common\cfginfo.ini'
         self.head_get_token = IniReader(self.file_path).get_dict('head_get_token')
         self.X_Application_id = self.head_get_token['X-Application-Id']
         self.date, self.X_Application_Auth = MD5(self.X_Application_id)
